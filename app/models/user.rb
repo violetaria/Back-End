@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
+  has_many :recipes
 
   before_validation :ensure_auth_token
 
