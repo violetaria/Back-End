@@ -4,26 +4,23 @@ class CategoryTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
-  test "can_create_new_category" do
+  test "can create new category" do
     category = Category.new(name: "Test")
 
     assert category.save
     assert category.errors.blank?
   end
 
-  test "cannot_create_category_without_name" do
+  test "cannot create category without name" do
     category = Category.new()
 
     refute category.save
     assert category.errors.present?
   end
 
-  test "cannot_create_two_categories_with_same_name" do
-    category = Category.new(name: "Test")
-    assert category.save
-    assert category.errors.blank?
+  test "cannot create two categories with same name" do
+    category = Category.new(name: categories(:one).name)
 
-    category = Category.new(name: "Test")
     refute category.save
     assert category.errors.present?
   end
