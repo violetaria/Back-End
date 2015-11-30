@@ -6,14 +6,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    token = request.headers["auth_token"]
+    token = request.headers["auth-token"]
     ## TODO may need to look at DB optimization
     token && User.find_by(auth_token: token)
   end
 
   def authenticate_user!
     unless current_user
-      token = request.headers["auth_token"]
+      token = request.headers["auth-token"]
       render json: { error: "Could not authenticate with auth_token:'#{token}'" },
              status: :unauthorized
     end
