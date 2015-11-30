@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email, :password_digest
   validates_uniqueness_of :email
+  validates_format_of :email, :with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
 
   def ensure_auth_token
     if self.auth_token.blank?
