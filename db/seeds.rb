@@ -9,7 +9,8 @@
 
 categories = Category.create([ { name: "Drinks" },
                                { name: "Appetizers" },
-                               { name: "Entrees" },
+                               { name: "Main Courses" },
                                { name: "Desserts" },
-                               { name: "Salads" }
+                               { name: "Salads and Soups" },
+                               { name: "Side Dishes" }
                              ])
