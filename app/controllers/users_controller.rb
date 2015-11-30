@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     if @user && @user.authenticate(params[:password])
       render "create.json.jbuilder", status: :accepted
     else
-      render json: { errors: "email or password incorrect"}, status: :unauthorized
+      render json: { errors: "email or password incorrect" }, status: :unauthorized
     end
   end
 end
