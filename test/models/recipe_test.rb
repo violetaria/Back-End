@@ -5,7 +5,7 @@ class RecipeTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  test "can_create_recipe" do
+  test "can create recipe" do
     recipe = users(:one).recipes.new(name: "Test Recipe")
 
     assert recipe.save
@@ -13,38 +13,29 @@ class RecipeTest < ActiveSupport::TestCase
   end
 
 
-  test "cannot_create_recipe_without_user" do
+  test "cannot create recipe without user" do
     recipe = Recipe.new(name: "Test Recipe")
 
     refute recipe.save
     assert recipe.errors.present?
   end
 
-  test "cannot_create_recipe_without_name" do
+  test "cannot create recipe without name" do
     recipe = users(:one).recipes.new()
 
     refute recipe.save
     assert recipe.errors.present?
   end
 
-  test "one_user_cannot_create_recipe_with_same_name" do
-    recipe = users(:one).recipes.new(name: "Test Recipe")
+  test "one user cannot create recipes with same name" do
+    recipe = users(:one).recipes.new(name: users(:one).recipes.first.name)
 
-    assert recipe.save
-    assert recipe.errors.blank?
-
-    recipe = users(:one).recipes.new(name: "Test Recipe")
     refute recipe.save
     assert recipe.errors.present?
   end
 
-  test "two_users_can_create_recipe_with_same_name" do
-    recipe = users(:one).recipes.new(name: "Test Recipe")
-
-    assert recipe.save
-    assert recipe.errors.blank?
-
-    recipe = users(:two).recipes.new(name: "Test Recipe")
+  test "two users can create recipe with same name" do
+    recipe = users(:two).recipes.new(name: users(:one).recipes.first.name)
     assert recipe.save
     assert recipe.errors.blank?
   end
