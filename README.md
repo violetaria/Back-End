@@ -6,10 +6,10 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 **Methods**
 
 * [User Methods](#user-methods)
-	* [Registration] (#user-registration)
+	* [Registration](#user-registration)
 	* [Login] (#user-login)
-
-	
+* [Category Methods](#category-methods)
+	* [List](#category-list)
 	
 ##<a name="user-methods"></a>User Methods
 
@@ -40,7 +40,7 @@ If successful, you will receive:
 {
   "success": "User created successfully",
   "email": "kelly@email.com",
-  "auth_token": "254cc2078c4e2388d35e187f5cd5cfcb"
+  "auth-token": "254cc2078c4e2388d35e187f5cd5cfcb"
 }           
 ```
 
@@ -83,7 +83,7 @@ If successful, you will receive:
 {
   "success": "User logged in successfully",
   "email": "terri@email.com",
-  "auth_token": "993e9fa29ee570454072443649f0c2fa"
+  "auth-token": "993e9fa29ee570454072443649f0c2fa"
 }         
 ```
 
@@ -97,5 +97,62 @@ If unsuccessful, you will receive:
 }
 ```
 
+##<a name="category-methods"></a>Category Methods
 
+###<a name="category-list"></a>List Categories
+
+This request will allow an authenticated user to list all categories in the system.
+
+**URL** /categories
+
+**Method** GET
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Drinks"
+    },
+    {
+      "id": 2,
+      "name": "Appetizers"
+    },
+    {
+      "id": 3,
+      "name": "Entrees"
+    },
+    {
+      "id": 4,
+      "name": "Desserts"
+    },
+    {
+      "id": 5,
+      "name": "Salads"
+    }
+  ]
+}      
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 401 - Not Authorized
+    
+```json
+{
+  "error": "Could not authenticate with auth_token:''"
+}
+```
 

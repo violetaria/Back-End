@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   post "users", to: "users#create"
   post "users/new", to: "users#new"
 
+  resources :categories, only: [ :index ] #, :create, :update, :destroy]
+
+
   # Example resource route with options:
   #   resources :products do
   #     member do
