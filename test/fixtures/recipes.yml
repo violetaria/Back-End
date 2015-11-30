@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
-  name: MyString
+  user: one
+  name: "Peppermint Martini"
 
 two:
-  user_id: 1
-  name: MyString
+  user: one
+  name: "Chocolate Cookies"
+
+three:
+  user: two
+  name: "Big Salad"
