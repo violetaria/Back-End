@@ -14,9 +14,8 @@ class RecipesController < ApplicationController
   end
 
   def create
-    #@recipe = current_user.recipes.new(recipe_params)
-    @recipe = current_user.recipes.new(name: params[:name],
-                                       category_names: params[:categories])
+    binding.pry
+    @recipe = current_user.recipes.new(recipe_params)
     if @recipe.save
       render "create.json.jbuilder", status: :created
     else
@@ -29,9 +28,7 @@ class RecipesController < ApplicationController
   def update
     recipe = current_user.recipes.find_by!(id: params[:id])
 
-    #recipe.update(recipe_params)
-    recipe.update(name: params[:name],
-                  category_names: params[:categories])
+    recipe.update(recipe_params)
 
     if recipe.errors.blank?
       render json: { success: "true" }, status: :ok
@@ -50,6 +47,6 @@ class RecipesController < ApplicationController
 
   private
   def recipe_params
-    params.permit(:name, :category_names => [:name] )
+    params.permit(:name, :category_names => [] )
   end
 end

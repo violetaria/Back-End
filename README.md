@@ -249,7 +249,7 @@ This request allows an authenticated user to create a new recipe.
 | Form Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
 | name | String | ​*(Required)*​ Name for your recipe |
-| categories| Array | *(Required)* An array of categories that the recipe will fit into, can contain more than one category.  Send a blank array for no categories (not tested)|
+| category_names| Array | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. |
 
 
 **Response**
@@ -420,8 +420,8 @@ This request allows an authenticated user to update an existing recipe.  Users c
 
 | Form Params | Type | Description  |
 | ------------- |:-------------:|:----- |
-| name | String | *(Required)* New name for the recipe |
-| categories| Array | *(Required)* An array of categories that the recipe will fit into, can contain more than one category.  Send a blank array for no categories (not tested)|
+| name | String | *(Optional)* New name for the recipe |
+| category_names| Array | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. |
 
 **Response**
 
