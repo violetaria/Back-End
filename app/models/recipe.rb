@@ -2,6 +2,7 @@ class Recipe < ActiveRecord::Base
   belongs_to :user
   has_many :recipe_categories, dependent: :destroy
   has_many :categories, through: :recipe_categories
+  has_many :directions
 
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [:user_id]
