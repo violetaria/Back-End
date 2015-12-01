@@ -51,7 +51,7 @@ class RecipesControllerTest < ActionController::TestCase
   test "cannot find recipe not in database" do
       @request.headers["auth-token"] = users(:one).auth_token
 
-      get :index, { id: 1 }
+      get :show, { id: 1 }
 
       assert_response :not_found
   end

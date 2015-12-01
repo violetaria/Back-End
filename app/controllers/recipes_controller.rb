@@ -1,8 +1,14 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
 
-  def index
+  def show
     @recipe = current_user.recipes.find_by!(id: params[:id])
+
+    render "show.json.jbuilder", status: :ok
+  end
+
+  def index
+    @recipes = current_user.recipes
 
     render "index.json.jbuilder", status: :ok
   end
