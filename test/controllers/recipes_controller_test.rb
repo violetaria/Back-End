@@ -6,7 +6,7 @@ class RecipesControllerTest < ActionController::TestCase
     @request.headers["auth-token"] = users(:one).auth_token
 
     assert_difference "Recipe.count" do
-      post :create, { name: "Test New Recipe" }
+      post :create, { name: "Test New Recipe", categories: ["Drinks"] }
     end
 
     assert_response :created
@@ -26,7 +26,7 @@ class RecipesControllerTest < ActionController::TestCase
     @request.headers["auth-token"] = users(:one).auth_token
 
     assert_no_difference "Recipe.count" do
-      post :create, { }
+      post :create, { categories: ["Drinks"] }
     end
 
     assert_response :unprocessable_entity
@@ -59,7 +59,7 @@ class RecipesControllerTest < ActionController::TestCase
   test "can update recipe when logged in" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    patch :update, { id: recipes(:one).id, name: "NEW NAME" }
+    patch :update, { id: recipes(:one).id, name: "NEW NAME", categories: ["Drinks"] }
 
     assert_response :ok
   end
