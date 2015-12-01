@@ -192,30 +192,29 @@ If successful, you will receive:
   "success": "true",
   "recipes": [
     {
-      "id": 9,
-      "name": "Pasta",
-      "categories": [
-        "Drinks",
-        "Desserts"
-      ]
-    },
-    {
-      "id": 10,
-      "name": "Fuschia",
-      "categories": [
-        "Drinks",
-        "Desserts"
-      ]
-    },
-    {
       "id": 1,
-      "name": "Baked Apples",
+      "name": "Baked Apples and Pie",
       "categories": [
         "Drinks"
+      ],
+      "directions": []
+    },
+    {
+      "id": 13,
+      "name": "Cast Iron Breakfast",
+      "categories": [
+        "Drinks",
+        "Desserts"
+      ],
+      "directions": [
+        "Turn on oven to 350",
+        "Mix eggs, bacon, and cheese together in a large bowl",
+        "Pour into a cast iron pan",
+        "Bake in oven for 15-20 minutes"
       ]
     }
   ]
-}     
+}  
 ```
 
 If unsuccessful, you will receive:
@@ -249,8 +248,8 @@ This request allows an authenticated user to create a new recipe.
 | Form Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
 | name | String | ​*(Required)*​ Name for your recipe |
-| category_names| Array | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. |
-
+| category_names| Array of Strings | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. |
+| steps | Array of Strings | *(Optional)* An array of directions for your recipe.  They should be sent over in order! |
 
 **Response**
 
@@ -308,13 +307,19 @@ If successful, you will receive:
 ```json
 {
   "success": "true",
-  "id": 10,
-  "name": "Fuschia",
+  "id": 13,
+  "name": "Cast Iron Breakfast",
   "categories": [
     "Drinks",
     "Desserts"
+  ],
+  "directions": [
+    "Turn on oven to 350",
+    "Mix eggs, bacon, and cheese together in a large bowl",
+    "Pour into a cast iron pan",
+    "Bake in oven for 15-20 minutes"
   ]
-}          
+}       
 ```
 
 If unsuccessful, you will receive:
@@ -358,35 +363,38 @@ If successful, you will receive:
   "success": "true",
   "recipes": [
     {
-      "id": 2,
-      "name": "Butter Cookies",
-      "categories": []
-    },
-    {
-      "id": 9,
-      "name": "Pasta",
+      "id": 12,
+      "name": "Salad",
       "categories": [
         "Drinks",
         "Desserts"
-      ]
-    },
-    {
-      "id": 10,
-      "name": "Fuschia",
-      "categories": [
-        "Drinks",
-        "Desserts"
-      ]
+      ],
+      "directions": []
     },
     {
       "id": 1,
-      "name": "Baked Apples",
+      "name": "Baked Apples and Pie",
       "categories": [
         "Drinks"
+      ],
+      "directions": []
+    },
+    {
+      "id": 13,
+      "name": "Cast Iron Breakfast",
+      "categories": [
+        "Drinks",
+        "Desserts"
+      ],
+      "directions": [
+        "Turn on oven to 350",
+        "Mix eggs, bacon, and cheese together in a large bowl",
+        "Pour into a cast iron pan",
+        "Bake in oven for 15-20 minutes"
       ]
     }
   ]
-}        
+}      
 ```
 
 If unsuccessful, you will receive:
