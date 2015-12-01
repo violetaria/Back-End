@@ -21,7 +21,9 @@ Rails.application.routes.draw do
   get "categories/:id/recipes", to: "categories#show"
 
 #  get "recipes/:id", to: "recipes#index"
-  resources :recipes, only: [:show, :index, :create, :update, :destroy ]
+  resources :recipes, only: [:show, :index, :create, :update, :destroy ] do
+    # resources :directions, only: [ :update, :destroy ]
+  end
 
 
   # Example resource route with options:
