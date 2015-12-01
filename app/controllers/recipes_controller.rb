@@ -1,14 +1,22 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @recipe = current_user.recipes.find_by!(id: params[:id])
+
+    render "show.json.jbuilder", status: :ok
+  end
+
   def index
-    @recipe = Recipe.find(params[:id])
+    @recipes = current_user.recipes
 
     render "index.json.jbuilder", status: :ok
   end
 
   def create
-    @recipe = current_user.recipes.new(recipe_params)
+    #@recipe = current_user.recipes.new(recipe_params)
+    @recipe = current_user.recipes.new(name: params[:name],
+                                       category_names: params[:categories])
     if @recipe.save
       render "create.json.jbuilder", status: :created
     else
@@ -19,9 +27,11 @@ class RecipesController < ApplicationController
   end
 
   def update
-    recipe = current_user.recipes.find(params[:id])
+    recipe = current_user.recipes.find_by!(id: params[:id])
 
-    recipe.update(name: params[:name])
+    #recipe.update(recipe_params)
+    recipe.update(name: params[:name],
+                  category_names: params[:categories])
 
     if recipe.errors.blank?
       render json: { success: "true" }, status: :ok
@@ -31,19 +41,15 @@ class RecipesController < ApplicationController
   end
 
   def destroy
-    recipe = current_user.recipes.find(params[:id])
+    recipe = current_user.recipes.find_by!(id: params[:id])
 
     recipe.destroy
 
-    if recipe.errors.blank?
-      render json: { success: "true" }, status: :ok
-    else
-      render json: { errors: recipe.errors.full_messages }, status: :unprocessable_entity
-    end
+    render json: { success: "true" }, status: :ok
   end
 
   private
   def recipe_params
-    params.permit(:name)
+    params.permit(:name, :category_names => [:name] )
   end
 end
