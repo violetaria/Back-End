@@ -3,12 +3,12 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
-    render "index.json.jbuilder"
+    render "index.json.jbuilder", status: :ok
   end
 
   ## TODO Not implemented yet
   def create
-    @category = Category.new(name: params[:name])
+    @category = current_user.categories.new(name: params[:name])
     if @category.save
       render "create.json.jbuilder", status: :created
     else

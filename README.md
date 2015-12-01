@@ -10,6 +10,11 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 	* [Login] (#user-login)
 * [Category Methods](#category-methods)
 	* [List](#category-list)
+* [Recipe Methods](#recipe-methods)
+	* [Create](#recipe-create)
+	* [Retrieve](#recipe-retrieve)
+	* [Update](#recipe-update)
+	* [Delete](#recipe-delete)
 	
 ##<a name="user-methods"></a>User Methods
 
@@ -24,7 +29,7 @@ This request will create a new user in the system and return back an auth\_token
 **Request**
     
 
-| Parameter        | Type           | Description  |
+| Form Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
 | email | String | ​*(Required)*​ Users email address, must follow the format TEXT@TEXT.TEXT |
 | password    | String      |  ​*(Required)*​  password for the user |
@@ -38,7 +43,7 @@ If successful, you will receive:
     
 ```json
 {
-  "success": "User created successfully",
+  "success": "true",
   "email": "kelly@email.com",
   "auth-token": "254cc2078c4e2388d35e187f5cd5cfcb"
 }           
@@ -66,8 +71,7 @@ This request will allow an existing user in the system to send their email and p
 
 **Request**
     
-
-| Parameter        | Type           | Description  |
+| Form Params       | Type           | Description  |
 | ------------- |:-------------:|:----- |
 | email | String | ​*(Required)*​ existing users email address|
 | password    | String      |  ​*(Required)*​  password for the user |
@@ -81,7 +85,7 @@ If successful, you will receive:
     
 ```json
 {
-  "success": "User logged in successfully",
+  "success": "true",
   "email": "terri@email.com",
   "auth-token": "993e9fa29ee570454072443649f0c2fa"
 }         
@@ -156,3 +160,195 @@ If unsuccessful, you will receive:
 }
 ```
 
+
+##<a name="recipe-methods"></a>Recipe Methods
+
+###<a name="recipe-create"></a>Create Recipe 
+
+This request allows an authenticated user to create a new recipe.
+
+**URL** /recipes
+
+**Method** POST
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| Form Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| name | String | ​*(Required)*​ Name for your recipe |
+
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 201 - Created
+    
+```json
+{
+  "success": "true",
+  "id": "1,
+  "name": "Snickerdoodles"
+}           
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 422 - Unprocessable Entity
+    
+```json
+{
+  "errors": [
+    "Name has already been taken"
+  ]
+}
+```
+
+
+###<a name="recipe-retrieve"></a>Retrieve Recipe 
+
+This request allows an authenticated user to get a single recipe and all related entities.
+
+**URL** /recipes/:id
+
+**Method** GET
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the recipe to retrieve |
+
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 201 - Created
+    
+```json
+{
+  "success": "true",
+  "id": "1,
+  "name": "Snickerdoodles"
+}           
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
+
+
+###<a name="recipe-update"></a>Update Recipe 
+
+This request allows an authenticated user to update an existing recipe.  Users can only update recipes that they have created.
+
+**URL** /recipes/:id
+
+**Method** PATCH
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the recipe to retrieve |
+
+| Form Params | Type | Description  |
+| ------------- |:-------------:|:----- |
+| name | String | *(Required)* New name for the recipe |
+
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true"
+}           
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
+-OR-
+	
+	Status Code: 401 - Unprocessible Entity
+
+```json
+{
+  "errors": [
+    "Name can't be blank"
+  ]
+}
+```
+
+###<a name="recipe-delete"></a>Delete Recipe 
+
+This request allows an authenticated user to delete an existing recipe.  Users can only delete recipes they have created.
+
+**URL** /recipes/:id
+
+**Method** DELETE
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the recipe to delete |
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true"
+}           
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
