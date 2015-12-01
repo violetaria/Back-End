@@ -1,3 +1,3 @@
 json.success "true"
-json.recipe @recipe.id
-json.recipe @recipe.name
+json.id @recipe.id
+json.name @recipe.name

@@ -19,7 +19,9 @@ Rails.application.routes.draw do
 
   resources :categories, only: [ :index ] #, :create, :update, :destroy]
 
-  resources :recipes, only: [ :index, :create, :update, :destroy ]
+  get "recipes/:id", to: "recipes#index"
+  resources :recipes, only: [ :create, :update, :destroy ]
+
 
   # Example resource route with options:
   #   resources :products do
