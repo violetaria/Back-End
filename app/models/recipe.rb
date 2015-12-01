@@ -12,10 +12,17 @@ class Recipe < ActiveRecord::Base
   end
 
   def category_names=(new_categories)
-    if new_categories.present?
-      categories = new_categories.each.map { |cat| Category.find_by(name: cat) }
-      self.categories = categories
-    end
+   categories = new_categories.each.map { |cat| Category.find_by(name: cat) }
+   self.categories = categories
+  end
+
+  def steps
+    self.directions.map { |step| step[:step] }
+  end
+
+  def steps=(new_steps)
+    steps = new_steps.each.map { |step| self.directions.create(step: step) }
+    self.directions = steps
   end
 end
 
