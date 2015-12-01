@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   post "users", to: "users#create"
   post "users/new", to: "users#new"
 
-  resources :categories, only: [ :index ] #, :create, :update, :destroy]
+  resources :categories, only: [:index ] #, :create, :update, :destroy]
+  get "categories/:id/recipes", to: "categories#show"
 
 #  get "recipes/:id", to: "recipes#index"
   resources :recipes, only: [:show, :index, :create, :update, :destroy ]

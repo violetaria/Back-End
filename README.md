@@ -9,10 +9,12 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 	* [Registration](#user-registration)
 	* [Login] (#user-login)
 * [Category Methods](#category-methods)
-	* [List](#category-list)
+	* [List All Categories](#category-list)
+	* [List All Recipes](#category-list-recipes)
 * [Recipe Methods](#recipe-methods)
 	* [Create](#recipe-create)
 	* [Retrieve](#recipe-retrieve)
+	* [List](#recipe-list)
 	* [Update](#recipe-update)
 	* [Delete](#recipe-delete)
 	
@@ -160,6 +162,72 @@ If unsuccessful, you will receive:
 }
 ```
 
+###<a name="category-list"></a>List All Recipes in Category
+
+This request will allow an authenticated user to list all recipes within the category in the system.
+
+**URL** /categories/:id/recipes
+
+**Method** GET
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the category to retrieve |
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true",
+  "recipes": [
+    {
+      "id": 9,
+      "name": "Pasta",
+      "categories": [
+        "Drinks",
+        "Desserts"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Fuschia",
+      "categories": [
+        "Drinks",
+        "Desserts"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Baked Apples",
+      "categories": [
+        "Drinks"
+      ]
+    }
+  ]
+}     
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 401 - Not Authorized
+    
+```json
+{
+  "error": "Could not authenticate with auth_token:''"
+}
+```
+
 
 ##<a name="recipe-methods"></a>Recipe Methods
 
@@ -259,6 +327,77 @@ If unsuccessful, you will receive:
 }
 ```
 
+###<a name="recipe-list"></a>List Recipes
+
+This request allows an authenticated user to get all of their recipes and all related entities.
+
+**URL** /recipes
+
+**Method** GET
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the recipe to retrieve |
+
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 201 - Created
+    
+```json
+{
+  "success": "true",
+  "recipes": [
+    {
+      "id": 2,
+      "name": "Butter Cookies",
+      "categories": []
+    },
+    {
+      "id": 9,
+      "name": "Pasta",
+      "categories": [
+        "Drinks",
+        "Desserts"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Fuschia",
+      "categories": [
+        "Drinks",
+        "Desserts"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Baked Apples",
+      "categories": [
+        "Drinks"
+      ]
+    }
+  ]
+}        
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
 
 ###<a name="recipe-update"></a>Update Recipe 
 

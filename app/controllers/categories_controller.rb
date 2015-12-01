@@ -6,6 +6,15 @@ class CategoriesController < ApplicationController
     render "index.json.jbuilder", status: :ok
   end
 
+  def show
+#    binding.pry
+    categories = Category.find_by!(id: params[:id])
+    @recipes = categories.recipes.includes(:recipe_categories)
+                         .references(:recipe_categories)
+                         .where("recipe_categories.category_id = ?",params[:id])
+    render "show.json.jbuilder", status: :ok
+  end
+
   ## TODO Not implemented yet
   def create
     @category = current_user.categories.new(name: params[:name])
