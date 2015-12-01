@@ -64,10 +64,10 @@ class RecipesControllerTest < ActionController::TestCase
     assert_response :ok
   end
 
-  test "cannot update recipe with blank data" do
+  test "cannot update recipe with blank name" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    patch :update, { id: recipes(:one).id }
+    patch :update, { id: recipes(:one).id, name: nil }
 
     assert_response :unprocessable_entity
   end
