@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def current_user
     token = request.headers["auth-token"]
     ## TODO may need to look at DB optimization
-    token && User.find_by(auth_token: token)
+    token && User.find_by!(auth_token: token)
   end
 
   def authenticate_user!

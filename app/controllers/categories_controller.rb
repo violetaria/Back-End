@@ -16,10 +16,12 @@ class CategoriesController < ApplicationController
     end
   end
 
+  ## TODO Not implemented yet
   def update
 
   end
 
+  ## TODO Not implemented yet
   def destroy
 
   end
