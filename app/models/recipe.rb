@@ -3,6 +3,7 @@ class Recipe < ActiveRecord::Base
   has_many :recipe_categories, dependent: :destroy
   has_many :categories, through: :recipe_categories
   has_many :directions
+  has_many :ingredients
 
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [:user_id]
@@ -17,7 +18,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def steps
-    self.directions.map { |step| step[:step] }
+    self.directions.order(:id).map { |step| step[:step] }
   end
 
   def steps=(new_steps)
