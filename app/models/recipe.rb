@@ -5,4 +5,15 @@ class Recipe < ActiveRecord::Base
 
   validates_presence_of :name, :user_id
   validates_uniqueness_of :name, scope: [:user_id]
+
+
+  def category_names
+    self.categories.map { |category| category[:name] }
+  end
+
+  def category_names=(new_categories)
+    categories = new_categories.map { |category| Category.find_by!(name: category) }
+    self.categories = categories
+  end
 end
+
