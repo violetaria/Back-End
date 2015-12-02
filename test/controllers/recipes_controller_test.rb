@@ -6,7 +6,7 @@ class RecipesControllerTest < ActionController::TestCase
     @request.headers["auth-token"] = users(:one).auth_token
 
     assert_difference "Recipe.count" do
-      post :create, { name: "Test New Recipe", categories: ["Drinks"] }
+      post :create, { name: "Test New Recipe", categories: ["Drinks"], steps: ["do stuff"], ingredients:[name: "test", amount: 2.5, unit: "cups"]}
     end
 
     assert_response :created
