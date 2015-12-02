@@ -28,11 +28,13 @@ class Recipe < ActiveRecord::Base
   end
 
   def ingredient_amounts
-    self.ingredients.map { |item| [item[:name], item[:amount], item[:unit]] }
+    self.recipe_ingredients.map do |x|
+     ingredient = Ingredient.find_by!(id: x.ingredient_id)
+     Hash[:name,ingredient.name,:amount,x[:amount],:unit,x[:unit]]
+    end
   end
 
   def ingredient_amounts=(new_amounts)
-    binding.pry
     new_amounts.each do | item |
       ingredient = Ingredient.find_or_create_by!(name: item[:name])
       self.recipe_ingredients.create!(ingredient_id: ingredient.id,
