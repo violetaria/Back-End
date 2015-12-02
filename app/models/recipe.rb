@@ -14,7 +14,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def category_names=(new_categories)
-   categories = new_categories.each.map { |cat| Category.find_by(name: cat) }
+   categories = new_categories.each.map { |cat| Category.find_by!(name: cat) }
    self.categories = categories
   end
 
@@ -28,11 +28,18 @@ class Recipe < ActiveRecord::Base
   end
 
   def ingredient_amounts
-
+    self.ingredients.map { |item| [item[:name], item[:amount], item[:unit]] }
   end
 
-  def ingredient_amounts=(new_ingredient_amounts)
-
+  def ingredient_amounts=(new_amounts)
+    binding.pry
+    new_amounts.each do | item |
+      ingredient = Ingredient.find_or_create_by!(name: item[:name])
+      self.recipe_ingredients.create!(ingredient_id: ingredient.id,
+                               amount: item[:amount],
+                               unit: item[:unit])
+    end
+    self.recipe_ingredients
   end
 end
 
