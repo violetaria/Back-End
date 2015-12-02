@@ -17,6 +17,7 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.new(recipe_params)
     if @recipe.save
       @recipe.steps = step_params
+      @recipe.ingredient_amounts = ingredient_params
       render "create.json.jbuilder", status: :created
     else
       render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
@@ -50,6 +51,10 @@ class RecipesController < ApplicationController
   end
 
   def step_params
-    params.permit(:steps => [])
+    params.permit(:steps => []).require(:steps)
+  end
+
+  def ingredient_params
+    params.permit({ingredients: [:name,:unit,:amount]}).require(:ingredients)
   end
 end

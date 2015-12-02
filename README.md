@@ -192,18 +192,9 @@ If successful, you will receive:
   "success": "true",
   "recipes": [
     {
-      "id": 1,
-      "name": "Baked Apples and Pie",
+      "id": 17,
+      "name": "chocolate",
       "categories": [
-        "Drinks"
-      ],
-      "directions": []
-    },
-    {
-      "id": 13,
-      "name": "Cast Iron Breakfast",
-      "categories": [
-        "Drinks",
         "Desserts"
       ],
       "directions": [
@@ -211,10 +202,22 @@ If successful, you will receive:
         "Mix eggs, bacon, and cheese together in a large bowl",
         "Pour into a cast iron pan",
         "Bake in oven for 15-20 minutes"
+      ],
+      "ingredients": [
+        {
+          "name": "carrots",
+          "amount": 2,
+          "unit": "TBS"
+        },
+        {
+          "name": "flour",
+          "amount": 2.5,
+          "unit": "cups"
+        }
       ]
     }
   ]
-}  
+} 
 ```
 
 If unsuccessful, you will receive:
@@ -249,7 +252,37 @@ This request allows an authenticated user to create a new recipe.
 | ------------- |:-------------:|:----- |
 | name | String | ​*(Required)*​ Name for your recipe |
 | category_names| Array of Strings | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. |
-| steps | Array of Strings | *(Optional)* An array of directions for your recipe.  They should be sent over in order! |
+| steps | Array of Strings | *(Required)* An array of directions for your recipe.  They should be sent over in order! |
+| ingredients | Array of Strings | *(Required)* An array of ingredients for your recipe |
+
+***Example Request***
+
+```json
+{
+  	"name": "Cheesy Eggs",
+  	"category_names": [
+  							"Desserts",
+  							"Entrees" ],
+	"steps":
+  		[ 	"Turn on oven to 350",
+      		"Mix eggs, bacon, and cheese together in a large bowl",
+      		"Pour into a cast iron pan",
+      		"Bake in oven for 15-20 minutes" ],
+ 	"ingredients":
+  		[	
+  			{  
+  				"name"=>"carrots", 
+  				"amount"=>"2", 
+  				"unit"=>"TBS"
+  			}, 
+  			{	
+  				"name"=>"flour", 
+  				"amount"=>"2.5", 
+  				"unit"=>"cups"
+  			}
+  		]
+  }
+```
 
 **Response**
 
@@ -261,7 +294,7 @@ If successful, you will receive:
 {
   "success": "true",
   "id": "1,
-  "name": "Snickerdoodles"
+  "name": "Cheesy Eggs"
 }           
 ```
 
@@ -363,27 +396,9 @@ If successful, you will receive:
   "success": "true",
   "recipes": [
     {
-      "id": 12,
-      "name": "Salad",
+      "id": 17,
+      "name": "chocolate",
       "categories": [
-        "Drinks",
-        "Desserts"
-      ],
-      "directions": []
-    },
-    {
-      "id": 1,
-      "name": "Baked Apples and Pie",
-      "categories": [
-        "Drinks"
-      ],
-      "directions": []
-    },
-    {
-      "id": 13,
-      "name": "Cast Iron Breakfast",
-      "categories": [
-        "Drinks",
         "Desserts"
       ],
       "directions": [
@@ -391,10 +406,47 @@ If successful, you will receive:
         "Mix eggs, bacon, and cheese together in a large bowl",
         "Pour into a cast iron pan",
         "Bake in oven for 15-20 minutes"
+      ],
+      "ingredients": [
+        {
+          "name": "carrots",
+          "amount": 2,
+          "unit": "TBS"
+        },
+        {
+          "name": "flour",
+          "amount": 2.5,
+          "unit": "cups"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Cheesy Eggs",
+      "categories": [
+        "Desserts"
+      ],
+      "directions": [
+        "Turn on oven to 350",
+        "Mix eggs, bacon, and cheese together in a large bowl",
+        "Pour into a cast iron pan",
+        "Bake in oven for 15-20 minutes"
+      ],
+      "ingredients": [
+        {
+          "name": "carrots",
+          "amount": 2,
+          "unit": "TBS"
+        },
+        {
+          "name": "flour",
+          "amount": 2.5,
+          "unit": "cups"
+        }
       ]
     }
   ]
-}      
+}     
 ```
 
 If unsuccessful, you will receive:

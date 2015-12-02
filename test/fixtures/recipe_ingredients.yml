@@ -2,8 +2,12 @@
 
 one:
   recipe: one
-  category: one
+  ingredient: one
+  amount: 1.5
+  unit: cups
 
-#two:
-#  recipe_id: 1
-#  category_id: 1
+two:
+  recipe: one
+  ingredient: two
+  amount: 1.5
+  unit: tsp
