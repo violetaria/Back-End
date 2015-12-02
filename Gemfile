@@ -29,6 +29,10 @@ gem 'bcrypt', '~> 3.1.7'
 # Use puma for web server
 gem 'puma'
 
+# Use foreman to setup environment variables and run the app.
+## (Alternatives include: foreman, dotenv, figaro)
+gem "foreman"
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
