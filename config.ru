@@ -14,3 +14,4 @@ use Rack::Cors do
              :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
              :methods => [:options, :get, :post, :delete, :put, :patch]
   end
+end
