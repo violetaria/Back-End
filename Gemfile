@@ -39,6 +39,9 @@ gem "foreman"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use nokogiri to parse HTML
+gem 'nokogiri'
+
 # Use HTTParty
 gem 'httparty'
 

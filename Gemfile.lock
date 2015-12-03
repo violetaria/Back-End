@@ -167,6 +167,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.0)
   jquery-rails
+  nokogiri
   pg
   pry
   puma
