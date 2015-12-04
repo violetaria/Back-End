@@ -28,7 +28,7 @@
        source_name: data["sourceName"],
        source_id: data["id"],
        name: data["title"],
-       stock_img: @base_images_uri+data["image"]}
+       source_image_url: @base_images_uri+data["image"]}
     end
 
     def get_recipe_data(source_url)

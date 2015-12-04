@@ -43,7 +43,10 @@ class RecipesController < ApplicationController
     end
 
     @recipe = current_user.recipes.new(name: recipe_info[:name],
-                                       category_names: params["category_names"])
+                                       category_names: params["category_names"],
+                                       source_name: recipe_info[:source_name],
+                                       source_url: recipe_info[:source_url],
+                                       source_image_url: recipe_info[:source_image_url])
 
     if @recipe.save
       @recipe.steps = steps
