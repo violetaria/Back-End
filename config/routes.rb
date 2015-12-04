@@ -20,10 +20,13 @@ Rails.application.routes.draw do
   resources :categories, only: [:index ] #, :create, :update, :destroy]
   get "categories/:id/recipes", to: "categories#show"
 
-#  get "recipes/:id", to: "recipes#index"
+  post "recipes/import", to: "recipes#import"
   resources :recipes, only: [:show, :index, :create, :update, :destroy ] do
     # resources :directions, only: [ :update, :destroy ]
   end
+
+  get "search/:query", to: "api_search#search"
+
 
 
   # Example resource route with options:
