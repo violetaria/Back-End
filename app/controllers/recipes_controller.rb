@@ -24,7 +24,7 @@ class RecipesController < ApplicationController
 
   def search_api
 
-      binding.pry
+     # binding.pry
 
     api = Spoonacular.new
     @recipes = api.search_recipes(params[:query])
@@ -34,7 +34,7 @@ class RecipesController < ApplicationController
   def import
     api = Spoonacular.new
     recipe_info = api.get_recipe_info(params["id"])
-    binding.pry
+    #binding.pry
     if recipe_info.nil?
       render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
     else
