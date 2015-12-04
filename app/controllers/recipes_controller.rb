@@ -8,9 +8,50 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = current_user.recipes.includes(:directions).includes(:categories)
+    @categorized_recipes = Hash.new
+    @categories = Category.all.map do |category|
+      @categorized_recipes[category.name.to_sym] = []
+      category.name
+    end
 
+    current_user.recipes.map do |recipe|
+      recipe.categories.each do |category|
+        @categorized_recipes[category.name.to_sym].push(recipe)
+      end
+    end
     render "index.json.jbuilder", status: :ok
+  end
+
+  def import
+    api = Spoonacular.new
+    recipe_info = api.get_recipe_info(params["id"])
+    recipe_data = api.get_recipe_data(recipe_info[:source_url])
+    recipe_text = Nokogiri::HTML(recipe_data["text"])
+    directions_html = recipe_text.xpath("//html/body/ol")
+    if directions_html.present?
+      steps = directions_html.first.children.map do |step|
+        step.text
+      end
+    else
+      steps = recipe_data["text"].split("\n").map do |step|
+        step.lstrip.rstrip
+      end
+    end
+
+    ingredients = recipe_data["extendedIngredients"].map do |ingredient|
+      {name: ingredient["name"],amount: ingredient["amount"],unit: ingredient["unit"]}
+    end
+
+    @recipe = current_user.recipes.new(name: recipe_info[:name],
+                                       category_names: params["category_names"])
+
+    if @recipe.save
+      @recipe.steps = steps
+      @recipe.ingredient_amounts = ingredients
+      render "import.json.jbuilder", status: :created
+    else
+      render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def create
