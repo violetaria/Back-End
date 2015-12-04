@@ -138,7 +138,7 @@ If successful, you will receive:
     },
     {
       "id": 3,
-      "name": "Entrees"
+      "name": "Main Courses"
     },
     {
       "id": 4,
@@ -146,10 +146,14 @@ If successful, you will receive:
     },
     {
       "id": 5,
-      "name": "Salads"
+      "name": "Salads and Soups"
+    },
+    {
+      "id": 6,
+      "name": "Side Dishes"
     }
   ]
-}      
+}    
 ```
 
 If unsuccessful, you will receive:
@@ -313,7 +317,7 @@ If unsuccessful, you will receive:
 
 ###<a name="recipe-retrieve"></a>Retrieve Recipe 
 
-This request allows an authenticated user to get a single recipe and all related entities.
+This request allows an authenticated user to get a single recipe and all related entities.  
 
 **URL** /recipes/:id
 
@@ -367,7 +371,7 @@ If unsuccessful, you will receive:
 
 ###<a name="recipe-list"></a>List Recipes
 
-This request allows an authenticated user to get all of their recipes and all related entities.
+This request allows an authenticated user to get all of their recipes and all related entities.  The recipes will be ordered by Category.  You will get back an array of hashes with the recipes for each category.
 
 **URL** /recipes
 
@@ -392,61 +396,173 @@ If successful, you will receive:
     Status Code: 201 - Created
     
 ```json
-{
+ {
   "success": "true",
   "recipes": [
     {
-      "id": 17,
-      "name": "chocolate",
-      "categories": [
-        "Desserts"
-      ],
-      "directions": [
-        "Turn on oven to 350",
-        "Mix eggs, bacon, and cheese together in a large bowl",
-        "Pour into a cast iron pan",
-        "Bake in oven for 15-20 minutes"
-      ],
-      "ingredients": [
+      "category": "Drinks",
+      "recipes": [
         {
-          "name": "carrots",
-          "amount": 2,
-          "unit": "TBS"
-        },
-        {
-          "name": "flour",
-          "amount": 2.5,
-          "unit": "cups"
+          "name": "Chocolate Cookies 2",
+          "id": 19,
+          "directions": [
+            "Turn on oven to 350",
+            "Mix eggs, bacon, and cheese together in a large bowl",
+            "Pour into a cast iron pan",
+            "Bake in oven for 15-20 minutes"
+          ],
+          "ingredients": [
+            {
+              "name": "carrots",
+              "amount": 2,
+              "unit": "TBS"
+            },
+            {
+              "name": "flour",
+              "amount": 2.5,
+              "unit": "cups"
+            }
+          ]
         }
       ]
     },
     {
-      "id": 18,
-      "name": "Cheesy Eggs",
-      "categories": [
-        "Desserts"
-      ],
-      "directions": [
-        "Turn on oven to 350",
-        "Mix eggs, bacon, and cheese together in a large bowl",
-        "Pour into a cast iron pan",
-        "Bake in oven for 15-20 minutes"
-      ],
-      "ingredients": [
+      "category": "Appetizers",
+      "recipes": []
+    },
+    {
+      "category": "Main Courses",
+      "recipes": []
+    },
+    {
+      "category": "Desserts",
+      "recipes": [
         {
-          "name": "carrots",
-          "amount": 2,
-          "unit": "TBS"
-        },
-        {
-          "name": "flour",
-          "amount": 2.5,
-          "unit": "cups"
+          "name": "Zucchini and Shrimp Fritters",
+          "id": 27,
+          "directions": [
+            "Make the coconut rice by adding the water, coconut milk, sugar, and salt to a large saucepan. Bring to a boil, then stir in rice. Return to a boil. Reduce heat to low, cover and cook for 20 minutes. Remove from heat and let stand 10 minutes, before fluffing with a fork.",
+            "Meanwhile, make the teriyaki sauce by adding all of the sauce ingredients to a small saucepan over medium heat. Bring to a boil, stirring constantly, and boil for about 1 minute. The sauce should be thick enough to coat the back of the spoon.",
+            "Pour 1/4 cup of the teriyaki sauce over the raw chicken and set aside to marinate for at least 15 minutes.",
+            "Prepare your grill and heat it to medium.",
+            "If you have a vegetable grill basket to grill the vegetables in, then chop them and grill them in the basket. If not, cut the zucchini and onion into large chunks and leave the mini bell peppers whole. Drizzle some olive oil over the vegetables and over the pineapple spears. Grill the vegetables for just a few minutes on each side and then remove to a plate. Grill the pineapple next by placing the pineapple spears directly on the grill. Grill for about 2 minutes on each side, and remove to a plate. Lastly, place the chicken on the grill. Cook for about 2 minutes on each side, or until cooked through. Remove to a plate to rest before slicing.",
+            "To serve, add coconut rice to each serving bowl. Top with grilled veggies, pineapple and chicken. Drizzle a little of the remaining teriyaki sauce on top. Sprinkle with toasted coconut, if desired."
+          ],
+          "ingredients": [
+            {
+              "name": "rice vinegar",
+              "amount": 2,
+              "unit": "Tbsp"
+            },
+            {
+              "name": "soy sauce",
+              "amount": 0.5,
+              "unit": "cup"
+            },
+            {
+              "name": "jasmine rice",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "water",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "unsweetened coconut milk",
+              "amount": 1.5,
+              "unit": "cups"
+            },
+            {
+              "name": "salt",
+              "amount": 1,
+              "unit": "tsp"
+            },
+            {
+              "name": "light brown sugar",
+              "amount": 2,
+              "unit": "tsp"
+            },
+            {
+              "name": "sweetened coconut flakes",
+              "amount": 0.5,
+              "unit": "cup"
+            },
+            {
+              "name": "red onion",
+              "amount": 1,
+              "unit": ""
+            },
+            {
+              "name": "bell peppers",
+              "amount": 4,
+              "unit": ""
+            },
+            {
+              "name": "pineapple",
+              "amount": 0.5,
+              "unit": ""
+            },
+            {
+              "name": "zucchini",
+              "amount": 1,
+              "unit": ""
+            },
+            {
+              "name": "chicken tenders",
+              "amount": 4,
+              "unit": ""
+            },
+            {
+              "name": "sesame oil",
+              "amount": 1,
+              "unit": "Tbsp"
+            },
+            {
+              "name": "brown sugar",
+              "amount": 0.25,
+              "unit": "cup"
+            },
+            {
+              "name": "honey",
+              "amount": 1,
+              "unit": "Tbsp"
+            },
+            {
+              "name": "ground ginger",
+              "amount": 0.75,
+              "unit": "tsp"
+            },
+            {
+              "name": "garlic",
+              "amount": 1,
+              "unit": "clove"
+            },
+            {
+              "name": "cornstarch",
+              "amount": 2,
+              "unit": "tsp"
+            },
+            {
+              "name": "crushed red pepper",
+              "amount": 0.25,
+              "unit": "tsp"
+            }
+          ]
         }
       ]
+    },
+    {
+      "category": "Salads and Soups",
+      "recipes": []
+    },
+    {
+      "category": "Side Dishes",
+      "recipes": []
     }
   ]
-}     
+}
 ```
 
 If unsuccessful, you will receive:
