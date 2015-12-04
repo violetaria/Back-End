@@ -17,6 +17,7 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 	* [List](#recipe-list)
 	* [Update](#recipe-update)
 	* [Delete](#recipe-delete)
+	* [Import](#recipe-import)
 	
 ##<a name="user-methods"></a>User Methods
 
@@ -255,7 +256,7 @@ This request allows an authenticated user to create a new recipe.
 | Form Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
 | name | String | ​*(Required)*​ Name for your recipe |
-| category_names| Array of Strings | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. |
+| category_names| Array of Strings | *(Required)* An array of categories that the recipe will fit into, can contain more than one category. <br>Example: ["Drinks", "Desserts"]|
 | steps | Array of Strings | *(Required)* An array of directions for your recipe.  They should be sent over in order! |
 | ingredients | Array of Strings | *(Required)* An array of ingredients for your recipe |
 
@@ -597,7 +598,7 @@ This request allows an authenticated user to update an existing recipe.  Users c
 | Form Params | Type | Description  |
 | ------------- |:-------------:|:----- |
 | name | String | *(Optional)* New name for the recipe |
-| category_names| Array | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. |
+| category_names| Array | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. <br>Example: ["Drinks", "Desserts"]|
 
 **Response**
 
@@ -661,6 +662,50 @@ If successful, you will receive:
 {
   "success": "true"
 }           
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
+
+###<a name="recipe-import"></a>Imoprt Recipe
+
+This request allows an authenticated user to import a recipe from the Spoonacular API.  User will need to provide which Categories they want the recipe added to in our database
+
+**URL** /recipes/import
+
+**Method** POST
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| Form Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the recipe to import, Recipe ID must be present in the Spoonacular DB |
+| category_names | Array of Strings | *(Required)* An array of strings which denote which category the user wants the recipe stored in.  <br>Example: ["Drinks", "Desserts"]|
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true",
+  "id": 30,
+  "name": "Sour Cherry Pudding Cake"
+}          
 ```
 
 If unsuccessful, you will receive:
