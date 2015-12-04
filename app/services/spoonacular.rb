@@ -24,11 +24,15 @@
       response = Spoonacular.get("/recipes/#{recipe_id}/information",
                                  headers: @auth)
       data = response.parsed_response
-      {source_url: data["sourceUrl"],
-       source_name: data["sourceName"],
-       source_id: data["id"],
-       name: data["title"],
-       source_image_url: @base_images_uri+data["image"]}
+      if data["status"] == "failure"
+        nil
+      else
+        { source_url: data["sourceUrl"],
+          source_name: data["sourceName"],
+          source_id: data["id"],
+          name: data["title"],
+          source_image_url: @base_images_uri+data["image"]}
+      end
     end
 
     def get_recipe_data(source_url)
