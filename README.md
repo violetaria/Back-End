@@ -17,8 +17,9 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 	* [List Recipes](#recipe-list)
 	* [Update](#recipe-update)
 	* [Delete](#recipe-delete)
-	* [Import from API](#recipe-import)
-	* [Retrieve from API](#recipe-retrieve)
+	* [Search from API](#recipe-search-api)
+	* [Import from API](#recipe-import-api)
+	* [Retrieve from API](#recipe-retrieve-api)
 	
 ##<a name="user-methods"></a>User Methods
 
@@ -744,11 +745,105 @@ If unsuccessful, you will receive:
 }
 ```
 
-###<a name="recipe-import"></a>Import Recipe from API
+###<a name="recipe-search-api"></a>Search Recipes from API
+
+This request allows an authenticated user to search for a recipe from the Spoonacular API.  User will need to provide search terms in the URL
+
+**URL** /api/recipes/search?query=:search_terms
+
+**Method** POST
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| query | String | ​*(Required)*​ recipe keywords to search the Spoonacular API|
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true",
+  "recipes": [
+    {
+      "id": 491957,
+      "name": "Bacon and Cheese Stuffed Burgers (Jucy Lucy Burgers)",
+      "source_image_url": "https://spoonacular.com/recipeImages/Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg"
+    },
+    {
+      "id": 102267,
+      "name": "Tex-Mex Burgers Texotic-Mexotic Burgers",
+      "source_image_url": "https://spoonacular.com/recipeImages/tex-mex-burgers-texotic-mexotic-burgers-2-102267.jpg"
+    },
+    {
+      "id": 600168,
+      "name": "Tartar Burgers – these are tasty little burgers that everyone will love",
+      "source_image_url": "https://spoonacular.com/recipeImages/Tartar-Burgers--these-are-tasty-little-burgers-that-everyone-will-love-600168.jpg"
+    },
+    {
+      "id": 145892,
+      "name": "Burgers.....my Way",
+      "source_image_url": "https://spoonacular.com/recipeImages/burgers-my-way-2-145892.jpg"
+    },
+    {
+      "id": 470451,
+      "name": "Best Burgers Ever",
+      "source_image_url": "https://spoonacular.com/recipeImages/Best-Burgers-Ever-470451.jpg"
+    },
+    {
+      "id": 471658,
+      "name": "The Very Best Burgers!",
+      "source_image_url": "https://spoonacular.com/recipeImages/The-Very-Best-Burgers-471658.jpg"
+    },
+    {
+      "id": 479011,
+      "name": "The Best Burgers",
+      "source_image_url": "https://spoonacular.com/recipeImages/The-Best-Burgers-479011.jpg"
+    },
+    {
+      "id": 545379,
+      "name": "All A.1. Burgers",
+      "source_image_url": "https://spoonacular.com/recipeImages/All-A-1--Burgers-545379.jpg"
+    },
+    {
+      "id": 7688,
+      "name": "Tuna Burgers",
+      "source_image_url": "https://spoonacular.com/recipeImages/tuna-burgers-2-7688.jpg"
+    },
+    {
+      "id": 8843,
+      "name": "Lentil Burgers",
+      "source_image_url": "https://spoonacular.com/recipeImages/lentil_burgers-8843.jpg"
+    }
+  ]
+}         
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
+
+
+###<a name="recipe-import-api"></a>Import Recipe from API
 
 This request allows an authenticated user to import a recipe from the Spoonacular API.  User will need to provide which Categories they want the recipe added to in our database
 
-**URL** /recipes/import
+**URL** /api/recipes/import
 
 **Method** POST
 
@@ -788,7 +883,7 @@ If unsuccessful, you will receive:
 }
 ```
 
-###<a name="recipe-import"></a>Retrieve Recipe from API
+###<a name="recipe-retrieve-api"></a>Retrieve Recipe from API
 
 This request allows an authenticated user to retrieve a recipe from the Spoonacular API.  User will need to provide the Recipe ID from Spoonacular
 
