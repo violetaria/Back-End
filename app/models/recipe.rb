@@ -5,7 +5,7 @@ class Recipe < ActiveRecord::Base
   has_many :directions
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
-  has_attached_file :my_image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :my_image, styles: { medium: "300x300>", thumb: "100x100>" } , default_url: ""
 
   validates_attachment_content_type :my_image, content_type: /\Aimage\/.*\Z/
   validates_with AttachmentSizeValidator, attributes: :my_image, less_than: 1.megabytes
