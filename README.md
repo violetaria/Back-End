@@ -1,5 +1,6 @@
 # Flour Power API
 <hr>
+[![Build Status](https://travis-ci.org/violetaria/Back-End.svg)](https://travis-ci.org/violetaria/Back-End)
 
 Welcome to the Flour Power API documentation.  This application will allow you to store and read your favorite recipes from varied media types (web, print, etc).
 
