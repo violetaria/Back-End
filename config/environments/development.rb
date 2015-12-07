@@ -38,4 +38,15 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Add Paperclip configurations
+  config.paperclip_defaults = {
+      storage: :s3,
+      s3_protocol: 'https',
+      s3_credentials: {
+          :bucket => ENV['S3_TEST_BUCKET'],
+          :access_key_id => ENV['S3_ACCESS_KEY'],
+          :secret_access_key => ENV['S3_SECRET_KEY']
+      }
+  }
 end
