@@ -14,10 +14,11 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 * [Recipe Methods](#recipe-methods)
 	* [Create](#recipe-create)
 	* [Retrieve](#recipe-retrieve)
-	* [List](#recipe-list)
+	* [List Recipes](#recipe-list)
 	* [Update](#recipe-update)
 	* [Delete](#recipe-delete)
-	* [Import](#recipe-import)
+	* [Import from API](#recipe-import)
+	* [Retrieve from API](#recipe-retrieve)
 	
 ##<a name="user-methods"></a>User Methods
 
@@ -219,7 +220,11 @@ If successful, you will receive:
           "amount": 2.5,
           "unit": "cups"
         }
-      ]
+      ],
+  	"source_name": "Foodnetwork",
+  	"source_url": "http://www.foodnetwork.com/recipes/guy-fieri/four-bean-relish-recipe.html",
+  	"source_image_url": "https://spoonacular.com/recipeImages/Four-Bean-Relish-311491.jpeg",
+  	"my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/005/original/28980-200.png?1449505114"      
     }
   ]
 } 
@@ -285,7 +290,9 @@ This request allows an authenticated user to create a new recipe.
   				"amount"=>"2.5", 
   				"unit"=>"cups"
   			}
-  		]
+  		],
+  		"my_image": "path to your local image of the recipe"      
+
   }
 ```
 
@@ -340,24 +347,87 @@ This request allows an authenticated user to get a single recipe and all related
 
 If successful, you will receive:
 
-    Status Code: 201 - Created
+    Status Code: 200 - OK
     
 ```json
 {
   "success": "true",
-  "id": 13,
-  "name": "Cast Iron Breakfast",
+  "id": 31,
+  "name": "Four-Bean Relish",
   "categories": [
-    "Drinks",
     "Desserts"
   ],
   "directions": [
-    "Turn on oven to 350",
-    "Mix eggs, bacon, and cheese together in a large bowl",
-    "Pour into a cast iron pan",
-    "Bake in oven for 15-20 minutes"
-  ]
-}       
+    "Directions",
+    "Whisk the red wine vinegar, balsamic vinegar, olive oil, 1/2 teaspoon sea salt, and pepper to taste in a large bowl.Add the scallions, red onion, Peppadew peppers, honey, white beans, chickpeas, pinto beans and black beans and toss to coat. Let sit in the refrigerator at least 2 hours to allow the flavors to blend. Mix thoroughly before serving.Photograph by Kat Teutsch"
+  ],
+  "ingredients": [
+    {
+      "name": "balsamic vinegar",
+      "amount": 0.25,
+      "unit": "cup"
+    },
+    {
+      "name": "bell peppers",
+      "amount": 0.25,
+      "unit": "cup"
+    },
+    {
+      "name": "canned black beans",
+      "amount": 12,
+      "unit": "ounce"
+    },
+    {
+      "name": "canned chickpeas",
+      "amount": 12,
+      "unit": "ounce"
+    },
+    {
+      "name": "canned pinto beans",
+      "amount": 12,
+      "unit": "ounce"
+    },
+    {
+      "name": "canned white beans",
+      "amount": 12,
+      "unit": "ounce"
+    },
+    {
+      "name": "honey",
+      "amount": 3,
+      "unit": "tablespoons"
+    },
+    {
+      "name": "olive oil",
+      "amount": 0.333333333333333,
+      "unit": "cup"
+    },
+    {
+      "name": "onion",
+      "amount": 0.75,
+      "unit": "cup"
+    },
+    {
+      "name": "red wine vinegar",
+      "amount": 0.333333333333333,
+      "unit": "cup"
+    },
+    {
+      "name": "scallions",
+      "amount": 0.25,
+      "unit": "cup"
+    },
+    {
+      "name": "sea salt",
+      "amount": 8,
+      "unit": "servings"
+    }
+  ],
+  "source_name": "Foodnetwork",
+  "source_url": "http://www.foodnetwork.com/recipes/guy-fieri/four-bean-relish-recipe.html",
+  "source_image_url": "https://spoonacular.com/recipeImages/Four-Bean-Relish-311491.jpeg",
+  "my_image": "/images/original/missing.png"
+}    
 ```
 
 If unsuccessful, you will receive:
@@ -674,7 +744,7 @@ If unsuccessful, you will receive:
 }
 ```
 
-###<a name="recipe-import"></a>Imoprt Recipe
+###<a name="recipe-import"></a>Import Recipe from API
 
 This request allows an authenticated user to import a recipe from the Spoonacular API.  User will need to provide which Categories they want the recipe added to in our database
 
@@ -707,6 +777,90 @@ If successful, you will receive:
   "name": "Sour Cherry Pudding Cake"
 }          
 ```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
+
+###<a name="recipe-import"></a>Retrieve Recipe from API
+
+This request allows an authenticated user to retrieve a recipe from the Spoonacular API.  User will need to provide the Recipe ID from Spoonacular
+
+**URL** /api/recipes/:id
+
+**Method** GET
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the recipe to import, Recipe ID must be present in the Spoonacular DB |
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+
+```json
+{
+  "success": "true",
+  "id": 491957,
+  "name": "Bacon and Cheese Stuffed Burgers (Jucy Lucy Burgers)",
+  "directions": [
+    "Divide beef into 4 equal portions. Form each portion into a tightly packed ball. Working with one ball at a time divide into 2 equal portions. Flatten them into a circle on a cutting board. Fold a slice of cheese in half twice so you have 4 squares of cheese and place in middle of burger. Cover the cheese with bacon crumbles and place the other patty on top so. Crimp the edges together to seal them, the cheese will make a bump on top. Repeat until all 4 burgers are ready. Season the tops with salt and pepper.",
+    "",
+    "Heat a large cast iron or heavy-bottomed skillet over medium heat (alternately you can grill them) and cook burgers over heat 5 minutes on first side (the cheese bump should facing up). Flip the burgers and poke the tops of the burgers with a toothpick to let steam escape. Cook 3-4 minutes. Remove from heat and let burgers rest a few minutes (especially when serving to children) as cheese is molten hot and can cause burns. Serve on buns with the condiments of your choice."
+  ],
+  "ingredients": [
+    {
+      "name": "buns",
+      "amount": 4,
+      "unit": ""
+    },
+    {
+      "name": "ground beef",
+      "amount": 1.25,
+      "unit": "pounds"
+    },
+    {
+      "name": "bacon",
+      "amount": 4,
+      "unit": "slices"
+    },
+    {
+      "name": "american cheese",
+      "amount": 4,
+      "unit": "slices"
+    },
+    {
+      "name": "coarse salt",
+      "amount": 4,
+      "unit": "servings"
+    },
+    {
+      "name": "condiments and toppings",
+      "amount": 4,
+      "unit": "servings"
+    }
+  ],
+  "source_name": "Cinnamon Spice and Everything Nice",
+  "source_url": "http://www.cinnamonspiceandeverythingnice.com/bacon-and-cheese-stuffed-burgers-jucy-lucy-burgers/",
+  "source_image_url": "https://spoonacular.com/recipeImages/Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg"
+}
+```
+
 
 If unsuccessful, you will receive:
 
