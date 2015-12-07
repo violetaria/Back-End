@@ -11,4 +11,4 @@ json.recipes do json.array! @categories.each do |category|
     json.source_image_url recipe.source_image_url
   end
 end
-  end
+end

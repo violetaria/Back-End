@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   end
 
   get "api/search", to: "recipes#search_api"
-
+  get "api/recipes/:id", to: "recipes#retrieve_api"
 
 
   # Example resource route with options:

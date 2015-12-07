@@ -36,9 +36,37 @@ class RecipesController < ApplicationController
     end
   end
 
+  def retrieve_api
+    api = Spoonacular.new
+    @recipe_info = api.get_recipe_info(params[:id])
+    if @recipe_info.nil?
+      render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
+    else
+      recipe_data = api.get_recipe_data(@recipe_info[:source_url])
+      recipe_text = Nokogiri::HTML(recipe_data["text"])
+      directions_html = recipe_text.xpath("//html/body/ol")
+      if directions_html.present?
+        @steps = directions_html.first.children.map do |step|
+          step.text
+        end
+      else
+        @steps = recipe_data["text"].split("\n").map do |step|
+          step.lstrip.rstrip
+        end
+      end
+      @ingredients = recipe_data["extendedIngredients"].map do |ingredient|
+        {name: ingredient["name"],amount: ingredient["amount"],unit: ingredient["unit"]}
+      end
+    end
+
+    render "retrieve_api.json.jbuilder", status: :ok
+
+  end
+
+
   def import
     api = Spoonacular.new
-    recipe_info = api.get_recipe_info(params["id"])
+    recipe_info = api.get_recipe_info(params[:id])
     #binding.pry
     if recipe_info.nil?
       render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
