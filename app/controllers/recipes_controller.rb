@@ -64,7 +64,7 @@ class RecipesController < ApplicationController
   end
 
 
-  def import
+  def import_api
     api = Spoonacular.new
     recipe_info = api.get_recipe_info(params[:id])
     #binding.pry

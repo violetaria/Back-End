@@ -20,11 +20,11 @@ Rails.application.routes.draw do
   resources :categories, only: [:index ] #, :create, :update, :destroy]
   get "categories/:id/recipes", to: "categories#show"
 
-  post "recipes/import", to: "recipes#import"
   resources :recipes, only: [:show, :index, :create, :update, :destroy ] do
     # resources :directions, only: [ :update, :destroy ]
   end
 
+  post "api/recipes/import", to: "recipes#import_api"
   get "api/search", to: "recipes#search_api"
   get "api/recipes/:id", to: "recipes#retrieve_api"
 
