@@ -86,6 +86,7 @@ class RecipesController < ApplicationController
   def update
     recipe = current_user.recipes.find_by!(id: params[:id])
 
+    binding.pry
     recipe.update(recipe_params)
 
     if recipe.errors.blank?
@@ -105,7 +106,7 @@ class RecipesController < ApplicationController
 
   private
   def recipe_params
-    params.permit(:name, :category_names => [])
+    params.permit(:name, :my_image, :category_names => [])
   end
 
   def step_params
