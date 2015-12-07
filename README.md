@@ -190,6 +190,8 @@ This request will allow an authenticated user to list all recipes within the cat
 
 **Response**
 
+Note: my_image will be set to "" if there is no picture uploaded by the user
+
 If successful, you will receive:
 
     Status Code: 200 - OK
@@ -265,6 +267,7 @@ This request allows an authenticated user to create a new recipe.
 | category_names| Array of Strings | *(Required)* An array of categories that the recipe will fit into, can contain more than one category. <br>Example: ["Drinks", "Desserts"]|
 | steps | Array of Strings | *(Required)* An array of directions for your recipe.  They should be sent over in order! |
 | ingredients | Array of Strings | *(Required)* An array of ingredients for your recipe |
+| my_image | Image | *(Optional)* a user uploaded picture of your recipe! |
 
 ***Example Request***
 
@@ -427,7 +430,7 @@ If successful, you will receive:
   "source_name": "Foodnetwork",
   "source_url": "http://www.foodnetwork.com/recipes/guy-fieri/four-bean-relish-recipe.html",
   "source_image_url": "https://spoonacular.com/recipeImages/Four-Bean-Relish-311491.jpeg",
-  "my_image": "/images/original/missing.png"
+  "my_image": ""
 }    
 ```
 
@@ -494,7 +497,11 @@ If successful, you will receive:
               "amount": 2.5,
               "unit": "cups"
             }
-          ]
+          ],
+          "source_name": null,
+          "source_url": null,
+          "source_image_url": null,
+          "my_image": ""
         }
       ]
     },
@@ -621,7 +628,11 @@ If successful, you will receive:
               "amount": 0.25,
               "unit": "tsp"
             }
-          ]
+          ],
+         	"source_name": "Allrecipes",
+  			"source_url": "http://allrecipes.com/recipe/sour-cherry-pudding-cake/Detail.aspx",
+			"source_image_url": "https://spoonacular.com/recipeImages/Sour-Cherry-Pudding-Cake-342491.jpg",
+			"my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/030/original/12279085_10207822490338393_5100797063626879098_n.jpg?1449521401"
         }
       ]
     },
@@ -670,6 +681,8 @@ This request allows an authenticated user to update an existing recipe.  Users c
 | ------------- |:-------------:|:----- |
 | name | String | *(Optional)* New name for the recipe |
 | category_names| Array | *(Optional)* An array of categories that the recipe will fit into, can contain more than one category. <br>Example: ["Drinks", "Desserts"]|
+| my_image | Image | *(Optional)* a user uploaded picture of your recipe! |
+
 
 **Response**
 
@@ -751,7 +764,7 @@ This request allows an authenticated user to search for a recipe from the Spoona
 
 **URL** /api/recipes/search?query=:search_terms
 
-**Method** POST
+**Method** GET
 
 **Request**
     

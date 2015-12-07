@@ -113,14 +113,11 @@ class RecipesController < ApplicationController
     else
       render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
     end
-    ## TODO add additional creates here once other models are created
   end
 
   def update
     recipe = current_user.recipes.find_by!(id: params[:id])
-
     recipe.update(recipe_params)
-
     if recipe.errors.blank?
       render json: { success: "true" }, status: :ok
     else
@@ -130,15 +127,17 @@ class RecipesController < ApplicationController
 
   def destroy
     recipe = current_user.recipes.find_by!(id: params[:id])
-
     recipe.destroy
-
-    render json: { success: "true" }, status: :ok
+    if recipe.errors.blank?
+      render json: { success: "true" }, status: :ok
+    else
+      render json: { errors: recipe.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
   def recipe_params
-    params.permit(:name, :category_names => [])
+    params.permit(:name, :my_image, :category_names => [])
   end
 
   def step_params
