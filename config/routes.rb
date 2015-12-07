@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     # resources :directions, only: [ :update, :destroy ]
   end
 
-  #get "search/:query", to: "api_search#search"
+  get "api/search", to: "recipes#search_api"
 
 
 

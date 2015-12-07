@@ -13,11 +13,7 @@
     def search_recipes(query)
       response = Spoonacular.get("/recipes/search?query=#{query}",
                      headers: @auth)
-      image_base_uri = response.parsed_response["baseUri"]
-      #binding.pry
-      response.parsed_response.map do |recipe|
-        Hash[:id, recipe["id"]]
-      end
+      response.parsed_response
     end
 
     def get_recipe_info(recipe_id)
