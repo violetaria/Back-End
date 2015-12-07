@@ -42,8 +42,11 @@ gem "foreman"
 # Use nokogiri to parse HTML
 gem 'nokogiri'
 
-# Use HTTParty
+# Use HTTParty to talk to APIs
 gem 'httparty'
+
+# use paperclip to store images on s3
+gem "paperclip", "~> 4.3"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
