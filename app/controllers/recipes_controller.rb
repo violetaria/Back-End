@@ -9,7 +9,8 @@ class RecipesController < ApplicationController
 
   def index
     @categorized_recipes = Hash.new
-    @categories = Category.all.map do |category|
+    @categories = Category.all
+    @categories.each do |category|
       @categorized_recipes[category.name.to_sym] = []
       category.name
     end
