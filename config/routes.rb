@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   end
 
   post "api/recipes/import", to: "recipes#import_api"
-  get "api/search", to: "recipes#search_api"
+  get "api/recipes/search", to: "recipes#search_api"
   get "api/recipes/:id", to: "recipes#retrieve_api"
 
 
