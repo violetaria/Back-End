@@ -15,7 +15,7 @@ class RecipesControllerTest < ActionController::TestCase
 
     assert_response :created
 
-    assert_not_nil assigns(@recipe)
+    assert_not_nil assigns(:recipe)
   end
 
   test "cannot create recipe when not logged in" do
@@ -41,14 +41,15 @@ class RecipesControllerTest < ActionController::TestCase
     assert_response :unprocessable_entity
   end
 
-  test "can get recipe when logged in" do
+  test "can get all recipes when logged in" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    get :index, { id: recipes(:one).id }
+    get :index
 
     assert_response :ok
 
-    assert_not_nil assigns(@recipe)
+    assert_not_nil assigns(:categorized_recipes)
+    assert_not_nil assigns(:categories)
   end
 
   test "cannot get recipe when not logged in" do
