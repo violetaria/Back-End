@@ -8,7 +8,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    categorize_flag = to_bool!(params["categorized"])
+    categorize_flag = params["categorized"].nil? ? true : to_bool!(params["categorized"])
     if categorize_flag
       @categorized_recipes = Hash.new
       @categories = Category.all
