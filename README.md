@@ -460,16 +460,11 @@ This request allows an authenticated user to get all of their recipes and all re
 | auth-token | String | ​*(Required)*​ existing users auth-token  |
 
 
-| URL Params | Type           | Description  |
-| ------------- |:-------------:|:----- |
-| id | Integer | ​*(Required)*​ ID of the recipe to retrieve |
-
-
 **Response**
 
 If successful, you will receive:
 
-    Status Code: 201 - Created
+    Status Code: 200 - OK
     
 ```json
  {

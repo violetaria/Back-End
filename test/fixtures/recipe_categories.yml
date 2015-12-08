@@ -4,6 +4,6 @@ one:
   recipe: one
   category: one
 
-#two:
-#  recipe_id: 1
-#  category_id: 1
+two:
+  recipe: two
+  category: one
