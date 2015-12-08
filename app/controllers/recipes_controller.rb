@@ -8,19 +8,26 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @categorized_recipes = Hash.new
-    @categories = Category.all
-    @categories.each do |category|
-      @categorized_recipes[category.name.to_sym] = []
-      category.name
-    end
-
-    current_user.recipes.map do |recipe|
-      recipe.categories.each do |category|
-        @categorized_recipes[category.name.to_sym].push(recipe)
+    categorize_flag = to_bool!(params["categorized"])
+    if categorize_flag
+      @categorized_recipes = Hash.new
+      @categories = Category.all
+      @categories.each do |category|
+        @categorized_recipes[category.name.to_sym] = []
+        category.name
       end
+
+      current_user.recipes.map do |recipe|
+        recipe.categories.each do |category|
+          @categorized_recipes[category.name.to_sym].push(recipe)
+        end
+      end
+
+      render "index_categorized.json.jbuilder", status: :ok
+    else
+      @recipes = current_user.recipes
+      render "index.json.jbuilder", status: :ok
     end
-    render "index.json.jbuilder", status: :ok
   end
 
   def search_api
@@ -146,5 +153,9 @@ class RecipesController < ApplicationController
 
   def ingredient_params
     params.permit({ingredients: [:name,:unit,:amount]}).require(:ingredients)
+  end
+
+  def to_bool!(value)
+    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(value)
   end
 end
