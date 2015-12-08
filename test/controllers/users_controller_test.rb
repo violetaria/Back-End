@@ -9,7 +9,7 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_response :created
 
-    assert_not_nil assigns(@user)[:user]
+    assert_not_nil assigns(:user)
   end
 
   test "cannot register user without email" do
@@ -33,7 +33,7 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_response :accepted
 
-    assert_not_nil assigns(@user)
+    assert_not_nil assigns(:user)
 
     assert_equal assigns(@user)[:user][:auth_token], users(:one).auth_token
   end

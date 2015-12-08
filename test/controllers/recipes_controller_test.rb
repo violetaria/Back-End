@@ -15,7 +15,7 @@ class RecipesControllerTest < ActionController::TestCase
 
     assert_response :created
 
-    assert_not_nil assigns(@recipe)
+    assert_not_nil assigns(:recipe)
   end
 
   test "cannot create recipe when not logged in" do
@@ -27,6 +27,8 @@ class RecipesControllerTest < ActionController::TestCase
     end
 
     assert_response :unauthorized
+
+    assert_nil assigns(:recipe)
   end
 
   test "cannot create recipe with no name" do
@@ -39,30 +41,38 @@ class RecipesControllerTest < ActionController::TestCase
     end
 
     assert_response :unprocessable_entity
+
+    assert_nil assigns(:recipe).id
   end
 
-  test "can get recipe when logged in" do
+  test "can get all recipes when logged in" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    get :index, { id: recipes(:one).id }
+    get :index
 
     assert_response :ok
 
-    assert_not_nil assigns(@recipe)
+    assert_not_nil assigns(:categorized_recipes)
+    assert_not_nil assigns(:categories)
   end
 
-  test "cannot get recipe when not logged in" do
-    get :index, { id: recipes(:one).id }
+  test "cannot get all recipes when not logged in" do
+    get :index
 
     assert_response :unauthorized
+
+    assert_nil assigns(:categorized_recipes)
+    assert_nil assigns(:categories)
   end
 
   test "cannot get recipe not in database" do
-      @request.headers["auth-token"] = users(:one).auth_token
+    @request.headers["auth-token"] = users(:one).auth_token
 
-      get :show, { id: 1 }
+    get :show, { id: 1 }
 
-      assert_response :not_found
+    assert_response :not_found
+
+    assert_nil assigns(:recipe)
   end
 
   test "can update recipe when logged in" do
@@ -125,5 +135,64 @@ class RecipesControllerTest < ActionController::TestCase
     end
 
     assert_response :not_found
+  end
+
+  test "can search api while logged in" do
+    @request.headers["auth-token"] = users(:one).auth_token
+
+    get :search_api, { query: "burgers" }
+
+    assert_response :ok
+
+    assert_not_nil (:recipes)
+  end
+
+  test "cannot search api when not logged in" do
+    get :search_api, { query: "burgers" }
+
+    assert_response :unauthorized
+
+
+    assert_nil assigns(:recipes)
+  end
+
+  test "can retrieve from api when logged in" do
+    @request.headers["auth-token"] = users(:one).auth_token
+
+    get :search_api, { query: "burgers" }
+
+    get :retrieve_api, { id: assigns(:recipes).first[:id] }
+
+    assert_response :ok
+
+    assert_not_nil assigns(:recipe_info)
+    assert_not_nil assigns(:steps)
+    assert_not_nil assigns(:ingredients)
+  end
+
+  test "cannot retrieve from api when not logged in" do
+    @request.headers["auth-token"] = users(:one).auth_token
+    get :search_api, { query: "burgers" }
+    @request.headers["auth-token"] = nil
+    get :retrieve_api, { id: assigns(:recipes).first[:id] }
+
+    assert_response :unauthorized
+
+    assert_nil assigns(:recipe_info)
+    assert_nil assigns(:steps)
+    assert_nil assigns(:ingredients)
+  end
+
+  test "can import recipe from api when logged in" do
+    @request.headers["auth-token"] = users(:one).auth_token
+    get :search_api, { query: "burgers" }
+
+    assert_difference ["Recipe.count","RecipeCategory.count"] do
+      post :import_api, { id: assigns(:recipes).first[:id], category_names: [categories(:one).name] }
+    end
+
+    assert_response :created
+
+    assert_not_nil assigns(:recipe)
   end
 end
