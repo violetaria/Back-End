@@ -32,8 +32,6 @@ class RecipeCategoryTest < ActiveSupport::TestCase
   end
 
   test "cannot create recipe category without a recipe" do
-    skip "issues with model validations"
-
     recipe_category = RecipeCategory.new(category_id: categories(:two).id)
 
     refute recipe_category.save
@@ -42,8 +40,6 @@ class RecipeCategoryTest < ActiveSupport::TestCase
   end
 
   test "cannot create recipe category without a category" do
-    skip "issues with model validations"
-
     recipe_category = RecipeCategory.new(recipe_id: recipes(:one).id)
 
     refute recipe_category.save

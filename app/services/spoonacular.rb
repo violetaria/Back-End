@@ -2,6 +2,8 @@
   class Spoonacular
     include HTTParty
     base_uri "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+
+    attr_reader :base_images_uri
     def initialize()
       @auth = {
           "X-Mashape-Key" => ENV["SPOONACULAR_KEY"]
@@ -19,16 +21,7 @@
     def get_recipe_info(recipe_id)
       response = Spoonacular.get("/recipes/#{recipe_id}/information",
                                  headers: @auth)
-      data = response.parsed_response
-      if data["status"] == "failure"
-        nil
-      else
-        { source_url: data["sourceUrl"],
-          source_name: data["sourceName"],
-          source_id: data["id"],
-          name: data["title"],
-          source_image_url: @base_images_uri+data["image"]}
-      end
+      response.parsed_response
     end
 
     def get_recipe_data(source_url)

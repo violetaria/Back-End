@@ -34,10 +34,7 @@ class RecipesController < ApplicationController
     api = Spoonacular.new
     results = api.search_recipes(params[:query])
     if results["totalResults"] > 0
-      image_base_uri = results["baseUri"]
-      @recipes = results["results"].map do |recipe|
-        {id: recipe["id"], name: recipe["title"], source_image_url: image_base_uri+recipe["image"]}
-      end
+      @recipes = SpoonacularFormatter.get_recipes(results)
       render "search_api.json.jbuilder", status: :ok
     else
       render json: { errors: "No results found which match query \'#{params[:query]}\'" }, status: :not_found
@@ -46,10 +43,22 @@ class RecipesController < ApplicationController
 
   def retrieve_api
     api = Spoonacular.new
-    @recipe_info = api.get_recipe_info(params[:id])
-    if @recipe_info.nil?
+
+    # data = response.parsed_response
+    # if data["status"] == "failure"
+    #   nil
+    # else
+    #   { source_url: data["sourceUrl"],
+    #     source_name: data["sourceName"],
+    #     source_id: data["id"],
+    #     name: data["title"],
+    #     source_image_url: @base_images_uri+data["image"]}
+    # end
+    data = api.get_recipe_info(params[:id])
+    if data["status"] == "failure"
       render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
     else
+      @recipe_info = SpoonacularFormatter.get_recipe_info(data,api.base_images_uri)
       recipe_data = api.get_recipe_data(@recipe_info[:source_url])
       recipe_text = Nokogiri::HTML(recipe_data["text"])
       directions_html = recipe_text.xpath("//html/body/ol")
