@@ -5,8 +5,12 @@ class RecipesControllerTest < ActionController::TestCase
   test "can create recipe when logged in" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    assert_difference "Recipe.count" do
-      post :create, { name: "Test New Recipe", categories: ["Drinks"], steps: ["do stuff"], ingredients:[name: "test", amount: 2.5, unit: "cups"]}
+    assert_difference ["Recipe.count","RecipeCategory.count","Ingredient.count","RecipeIngredient.count","Direction.count"] do
+      post :create, { name: "Test New Recipe",
+                      category_names: [categories(:one).name],
+                      steps: ["step 1"],
+                      ingredients:[{name: "NEW INGREDIENT", amount: 2.5, unit: "cups"}]}
+
     end
 
     assert_response :created
@@ -15,8 +19,11 @@ class RecipesControllerTest < ActionController::TestCase
   end
 
   test "cannot create recipe when not logged in" do
-    assert_no_difference "Recipe.count" do
-      post :create, { name: "Test New Recipe" }
+    assert_no_difference ["Recipe.count","RecipeCategory.count","Ingredient.count","RecipeIngredient.count","Direction.count"] do
+      post :create, {  name: "Test New Recipe",
+                       category_names: [categories(:one).name],
+                       steps: ["step 1"],
+                       ingredients:[{name: "NEW INGREDIENT", amount: 2.5, unit: "cups"}]}
     end
 
     assert_response :unauthorized
@@ -25,8 +32,10 @@ class RecipesControllerTest < ActionController::TestCase
   test "cannot create recipe with no name" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    assert_no_difference "Recipe.count" do
-      post :create, { categories: ["Drinks"] }
+    assert_no_difference ["Recipe.count","RecipeCategory.count","Ingredient.count","RecipeIngredient.count","Direction.count"] do
+      post :create, { category_names: [categories(:one).name],
+                      steps: ["step 1"],
+                      ingredients:[{name: "NEW INGREDIENT", amount: 2.5, unit: "cups"}]}
     end
 
     assert_response :unprocessable_entity
@@ -48,7 +57,7 @@ class RecipesControllerTest < ActionController::TestCase
     assert_response :unauthorized
   end
 
-  test "cannot find recipe not in database" do
+  test "cannot get recipe not in database" do
       @request.headers["auth-token"] = users(:one).auth_token
 
       get :show, { id: 1 }
@@ -83,7 +92,7 @@ class RecipesControllerTest < ActionController::TestCase
   test "can destroy recipe when logged in" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    assert_difference "Recipe.count",-1 do
+    assert_difference ["Recipe.count","RecipeCategory.count","Direction.count","RecipeIngredient.count"],-1 do
       delete :destroy, { id: users(:one).recipes.first.id }
     end
 
@@ -91,7 +100,7 @@ class RecipesControllerTest < ActionController::TestCase
   end
 
   test "cannot destroy recipe when not logged in" do
-    assert_no_difference "Recipe.count" do
+    assert_no_difference ["Recipe.count","RecipeCategory.count","Direction.count","RecipeIngredient.count"] do
       delete :destroy, { id: users(:one).recipes.first.id }
     end
 
@@ -101,7 +110,7 @@ class RecipesControllerTest < ActionController::TestCase
   test "cannot destroy recipe not owned by user" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    assert_no_difference "Recipe.count" do
+    assert_no_difference ["Recipe.count","RecipeCategory.count","Direction.count","RecipeIngredient.count"] do
       delete :destroy, { id: users(:two).recipes.first.id }
     end
 
@@ -111,7 +120,7 @@ class RecipesControllerTest < ActionController::TestCase
   test "cannot destroy recipe not in db" do
     @request.headers["auth-token"] = users(:one).auth_token
 
-    assert_no_difference "Recipe.count" do
+    assert_no_difference ["Recipe.count","RecipeCategory.count","Direction.count","RecipeIngredient.count"] do
       delete :destroy, { id: 1 }
     end
 

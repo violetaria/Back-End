@@ -1,10 +1,12 @@
 class Recipe < ActiveRecord::Base
   belongs_to :user
+
   has_many :recipe_categories, dependent: :destroy
   has_many :categories, through: :recipe_categories
-  has_many :directions
+  has_many :directions, dependent: :destroy
   has_many :recipe_ingredients, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
+
   has_attached_file :my_image, styles: { medium: "300x300>", thumb: "100x100>" } , default_url: ""
 
   validates_attachment_content_type :my_image, content_type: /\Aimage\/.*\Z/
