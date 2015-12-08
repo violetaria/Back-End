@@ -43,74 +43,35 @@ class RecipesController < ApplicationController
 
   def retrieve_api
     api = Spoonacular.new
-
-    # data = response.parsed_response
-    # if data["status"] == "failure"
-    #   nil
-    # else
-    #   { source_url: data["sourceUrl"],
-    #     source_name: data["sourceName"],
-    #     source_id: data["id"],
-    #     name: data["title"],
-    #     source_image_url: @base_images_uri+data["image"]}
-    # end
     data = api.get_recipe_info(params[:id])
     if data["status"] == "failure"
       render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
     else
       @recipe_info = SpoonacularFormatter.get_recipe_info(data,api.base_images_uri)
       recipe_data = api.get_recipe_data(@recipe_info[:source_url])
-      recipe_text = Nokogiri::HTML(recipe_data["text"])
-      directions_html = recipe_text.xpath("//html/body/ol")
-      if directions_html.present?
-        @steps = directions_html.first.children.map do |step|
-          step.text
-        end
-      else
-        @steps = recipe_data["text"].split("\n").map do |step|
-          step.lstrip.rstrip
-        end
-      end
-      @ingredients = recipe_data["extendedIngredients"].map do |ingredient|
-        {name: ingredient["name"],amount: ingredient["amount"],unit: ingredient["unit"]}
-      end
+      @steps = SpoonacularFormatter.get_recipe_steps(recipe_data)
+      @ingredients = SpoonacularFormatter.get_recipe_ingredients(recipe_data)
+      render "retrieve_api.json.jbuilder", status: :ok
     end
-
-    render "retrieve_api.json.jbuilder", status: :ok
-
   end
 
 
   def import_api
     api = Spoonacular.new
-    recipe_info = api.get_recipe_info(params[:id])
-    if recipe_info.nil?
+    data = api.get_recipe_info(params[:id])
+    if data["status"] == "failure"
       render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
     else
+      recipe_info = SpoonacularFormatter.get_recipe_info(data,api.base_images_uri)
       recipe_data = api.get_recipe_data(recipe_info[:source_url])
-      recipe_text = Nokogiri::HTML(recipe_data["text"])
-      directions_html = recipe_text.xpath("//html/body/ol")
-      if directions_html.present?
-        steps = directions_html.first.children.map do |step|
-          step.text
-        end
-      else
-        steps = recipe_data["text"].split("\n").map do |step|
-          step.lstrip.rstrip
-        end
-      end
-
-      ingredients = recipe_data["extendedIngredients"].map do |ingredient|
-        {name: ingredient["name"],amount: ingredient["amount"],unit: ingredient["unit"]}
-      end
-
+      steps = SpoonacularFormatter.get_recipe_steps(recipe_data)
+      ingredients = SpoonacularFormatter.get_recipe_ingredients(recipe_data)
       @recipe = current_user.recipes.new(name: recipe_info[:name],
-                                         category_names: params["category_names"],
                                          source_name: recipe_info[:source_name],
                                          source_url: recipe_info[:source_url],
                                          source_image_url: recipe_info[:source_image_url])
-
       if @recipe.save
+        @recipe.category_names = params["category_names"]
         @recipe.steps = steps
         @recipe.ingredient_amounts = ingredients
         render "import.json.jbuilder", status: :created
@@ -124,6 +85,7 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.new(recipe_params)
     if @recipe.save
       @recipe.steps = step_params
+      @recipe.category_names = category_params
       @recipe.ingredient_amounts = ingredient_params
       render "create.json.jbuilder", status: :created
     else
@@ -153,7 +115,11 @@ class RecipesController < ApplicationController
 
   private
   def recipe_params
-    params.permit(:name, :my_image, :category_names => [])
+    params.permit(:name, :my_image)
+  end
+
+  def category_params
+    params.permit(:category_names => []).require(:category_names)
   end
 
   def step_params
