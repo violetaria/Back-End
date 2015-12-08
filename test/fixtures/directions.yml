@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  recipe_id: 1
-  step: MyString
+  recipe: one
+  step: "Add a cup of cheese"
 
 two:
-  recipe_id: 1
-  step: MyString
+  recipe: two
+  step: "Stir stir stir"

@@ -1,5 +1,6 @@
 # Flour Power API
 <hr>
+[![Build Status](https://travis-ci.org/violetaria/Back-End.svg)](https://travis-ci.org/violetaria/Back-End)
 
 Welcome to the Flour Power API documentation.  This application will allow you to store and read your favorite recipes from varied media types (web, print, etc).
 
@@ -459,16 +460,11 @@ This request allows an authenticated user to get all of their recipes and all re
 | auth-token | String | ​*(Required)*​ existing users auth-token  |
 
 
-| URL Params | Type           | Description  |
-| ------------- |:-------------:|:----- |
-| id | Integer | ​*(Required)*​ ID of the recipe to retrieve |
-
-
 **Response**
 
 If successful, you will receive:
 
-    Status Code: 201 - Created
+    Status Code: 200 - OK
     
 ```json
  {
@@ -719,7 +715,7 @@ If unsuccessful, you will receive:
 
 ###<a name="recipe-delete"></a>Delete Recipe 
 
-This request allows an authenticated user to delete an existing recipe.  Users can only delete recipes they have created.
+This request allows an authenticated user to delete an existing recipe.  Users can only delete recipes they have created.  All directions and ingredient amounts for that recipe will be deleted as well.
 
 **URL** /recipes/:id
 

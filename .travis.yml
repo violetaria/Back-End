@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 2.2.2
+env:
+  - DB=flourpower_test
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate test
+before_script:
+  - psql -c 'create database flourpower_test' -U postgres
