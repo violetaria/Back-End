@@ -26,14 +26,14 @@ class RecipesController < ApplicationController
   def search_api
     api = Spoonacular.new
     results = api.search_recipes(params[:query])
-    image_base_uri = results["baseUri"]
-    @recipes = results["results"].map do |recipe|
-      {id: recipe["id"], name: recipe["title"], source_image_url: image_base_uri+recipe["image"]}
-    end
-    if @recipes.present?
+    if results["totalResults"] > 0
+      image_base_uri = results["baseUri"]
+      @recipes = results["results"].map do |recipe|
+        {id: recipe["id"], name: recipe["title"], source_image_url: image_base_uri+recipe["image"]}
+      end
       render "search_api.json.jbuilder", status: :ok
     else
-      render json: { errors: "No results found which match query #{params[:query]}" }, status: :no_content
+      render json: { errors: "No results found which match query \'#{params[:query]}\'" }, status: :not_found
     end
   end
 
@@ -68,7 +68,6 @@ class RecipesController < ApplicationController
   def import_api
     api = Spoonacular.new
     recipe_info = api.get_recipe_info(params[:id])
-    #binding.pry
     if recipe_info.nil?
       render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
     else

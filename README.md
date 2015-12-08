@@ -843,7 +843,7 @@ If unsuccessful, you will receive:
     
 ```json
 {
-  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+  "errors": "No results found which match query 'BLAH'"
 }
 ```
 
