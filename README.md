@@ -354,6 +354,8 @@ If successful, you will receive:
 
     Status Code: 200 - OK
     
+Categorized = TRUE
+
 ```json
 {
   "success": "true",
@@ -435,6 +437,191 @@ If successful, you will receive:
 }    
 ```
 
+Categorized = FALSE
+
+```json
+{
+  "success": "true",
+  "recipes": [
+    {
+      "name": "Test",
+      "id": 25,
+      "categories": [
+        "Drinks"
+      ],
+      "directions": [
+        "Make the coconut rice by adding the water, coconut milk, sugar, and salt to a large saucepan. Bring to a boil, then stir in rice. Return to a boil. Reduce heat to low, cover and cook for 20 minutes. Remove from heat and let stand 10 minutes, before fluffing with a fork.",
+        "Meanwhile, make the teriyaki sauce by adding all of the sauce ingredients to a small saucepan over medium heat. Bring to a boil, stirring constantly, and boil for about 1 minute. The sauce should be thick enough to coat the back of the spoon.",
+        "Pour 1/4 cup of the teriyaki sauce over the raw chicken and set aside to marinate for at least 15 minutes.",
+        "Prepare your grill and heat it to medium.",
+        "If you have a vegetable grill basket to grill the vegetables in, then chop them and grill them in the basket. If not, cut the zucchini and onion into large chunks and leave the mini bell peppers whole. Drizzle some olive oil over the vegetables and over the pineapple spears. Grill the vegetables for just a few minutes on each side and then remove to a plate. Grill the pineapple next by placing the pineapple spears directly on the grill. Grill for about 2 minutes on each side, and remove to a plate. Lastly, place the chicken on the grill. Cook for about 2 minutes on each side, or until cooked through. Remove to a plate to rest before slicing.",
+        "To serve, add coconut rice to each serving bowl. Top with grilled veggies, pineapple and chicken. Drizzle a little of the remaining teriyaki sauce on top. Sprinkle with toasted coconut, if desired."
+      ],
+      "ingredients": [
+        {
+          "name": "rice vinegar",
+          "amount": 2,
+          "unit": "Tbsp"
+        },
+        {
+          "name": "soy sauce",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "jasmine rice",
+          "amount": 2,
+          "unit": "cups"
+        },
+        {
+          "name": "water",
+          "amount": 2,
+          "unit": "cups"
+        },
+        {
+          "name": "unsweetened coconut milk",
+          "amount": 1.5,
+          "unit": "cups"
+        },
+        {
+          "name": "salt",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "light brown sugar",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "name": "sweetened coconut flakes",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "red onion",
+          "amount": 1,
+          "unit": ""
+        },
+        {
+          "name": "bell peppers",
+          "amount": 4,
+          "unit": ""
+        },
+        {
+          "name": "pineapple",
+          "amount": 0.5,
+          "unit": ""
+        },
+        {
+          "name": "zucchini",
+          "amount": 1,
+          "unit": ""
+        },
+        {
+          "name": "chicken tenders",
+          "amount": 4,
+          "unit": ""
+        },
+        {
+          "name": "sesame oil",
+          "amount": 1,
+          "unit": "Tbsp"
+        },
+        {
+          "name": "brown sugar",
+          "amount": 0.25,
+          "unit": "cup"
+        },
+        {
+          "name": "honey",
+          "amount": 1,
+          "unit": "Tbsp"
+        },
+        {
+          "name": "ground ginger",
+          "amount": 0.75,
+          "unit": "tsp"
+        },
+        {
+          "name": "garlic",
+          "amount": 1,
+          "unit": "clove"
+        },
+        {
+          "name": "cornstarch",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "name": "crushed red pepper",
+          "amount": 0.25,
+          "unit": "tsp"
+        }
+      ],
+      "source_name": null,
+      "source_url": null,
+      "source_image_url": null,
+      "my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/025/original/10-512.png?1449520081"
+    },
+    {
+      "name": "Sour Cherry Pudding Cake",
+      "id": 30,
+      "categories": [
+        "Drinks"
+      ],
+      "directions": [
+        "Preheat oven to 375 degrees F (190 degrees C). Grease a 9x13-inch baking dish.",
+        "In a bowl, stir together the flour, 1 cup of sugar, baking powder, milk, and vegetable oil to make a smooth batter; scrape batter into the prepared baking dish.",
+        "In a separate bowl, stir the cherries with 1 cup of sugar and the almond extract; spoon the cherry mixture over the batter.",
+        "Bake in the preheated oven until the cake is lightly browned and a toothpick inserted into the center of the cake comes out clean, about 30 minutes.",
+        "Kitchen-Friendly View"
+      ],
+      "ingredients": [
+        {
+          "name": "almond extract",
+          "amount": 0.25,
+          "unit": "teaspoon"
+        },
+        {
+          "name": "baking powder",
+          "amount": 1,
+          "unit": "tablespoon"
+        },
+        {
+          "name": "flour",
+          "amount": 2,
+          "unit": "cups"
+        },
+        {
+          "name": "milk",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "name": "tart cherries",
+          "amount": 3,
+          "unit": "cups"
+        },
+        {
+          "name": "vegetable oil",
+          "amount": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "name": "white sugar",
+          "amount": 1,
+          "unit": "cup"
+        }
+      ],
+      "source_name": "Allrecipes",
+      "source_url": "http://allrecipes.com/recipe/sour-cherry-pudding-cake/Detail.aspx",
+      "source_image_url": "https://spoonacular.com/recipeImages/Sour-Cherry-Pudding-Cake-342491.jpg",
+      "my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/030/original/12279085_10207822490338393_5100797063626879098_n.jpg?1449521401"
+    },
+    ]
+```
+
 If unsuccessful, you will receive:
 
     Status Code: 404 - Not Found
@@ -447,7 +634,7 @@ If unsuccessful, you will receive:
 
 ###<a name="recipe-list"></a>List Recipes
 
-This request allows an authenticated user to get all of their recipes and all related entities.  The recipes will be ordered by Category.  You will get back an array of hashes with the recipes for each category.
+This request allows an authenticated user to get all of their recipes and all related entities.  There are two ways to call this API.  If you send a URL parameter with categorized=false, it will return all the recipes uncategorized and you will get an array of recipes.  Otherwise, the recipes will be ordered by Category and you will get back an array of hashes with the recipes for each category.
 
 **URL** /recipes
 
@@ -459,6 +646,9 @@ This request allows an authenticated user to get all of their recipes and all re
 | ------------- |:-------------:|:----- |
 | auth-token | String | ​*(Required)*​ existing users auth-token  |
 
+| URL Parameters        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| categorized | boolean | ​*(optional)*​ default: true, if you set to false, the recipes will not be organized by category  |
 
 **Response**
 
@@ -843,7 +1033,7 @@ If unsuccessful, you will receive:
     
 ```json
 {
-  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+  "errors": "No results found which match query 'BLAH'"
 }
 ```
 

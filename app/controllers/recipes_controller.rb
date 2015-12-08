@@ -8,32 +8,39 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @categorized_recipes = Hash.new
-    @categories = Category.all
-    @categories.each do |category|
-      @categorized_recipes[category.name.to_sym] = []
-      category.name
-    end
-
-    current_user.recipes.map do |recipe|
-      recipe.categories.each do |category|
-        @categorized_recipes[category.name.to_sym].push(recipe)
+    categorize_flag = params["categorized"].nil? ? true : to_bool!(params["categorized"])
+    if categorize_flag
+      @categorized_recipes = Hash.new
+      @categories = Category.all
+      @categories.each do |category|
+        @categorized_recipes[category.name.to_sym] = []
+        category.name
       end
+
+      current_user.recipes.map do |recipe|
+        recipe.categories.each do |category|
+          @categorized_recipes[category.name.to_sym].push(recipe)
+        end
+      end
+
+      render "index_categorized.json.jbuilder", status: :ok
+    else
+      @recipes = current_user.recipes
+      render "index.json.jbuilder", status: :ok
     end
-    render "index.json.jbuilder", status: :ok
   end
 
   def search_api
     api = Spoonacular.new
     results = api.search_recipes(params[:query])
-    image_base_uri = results["baseUri"]
-    @recipes = results["results"].map do |recipe|
-      {id: recipe["id"], name: recipe["title"], source_image_url: image_base_uri+recipe["image"]}
-    end
-    if @recipes.present?
+    if results["totalResults"] > 0
+      image_base_uri = results["baseUri"]
+      @recipes = results["results"].map do |recipe|
+        {id: recipe["id"], name: recipe["title"], source_image_url: image_base_uri+recipe["image"]}
+      end
       render "search_api.json.jbuilder", status: :ok
     else
-      render json: { errors: "No results found which match query #{params[:query]}" }, status: :no_content
+      render json: { errors: "No results found which match query \'#{params[:query]}\'" }, status: :not_found
     end
   end
 
@@ -68,7 +75,6 @@ class RecipesController < ApplicationController
   def import_api
     api = Spoonacular.new
     recipe_info = api.get_recipe_info(params[:id])
-    #binding.pry
     if recipe_info.nil?
       render json: { errors: "Recipe ID: #{params[:id]} not found in Spoonacular DB" }, status: :not_found
     else
@@ -147,5 +153,9 @@ class RecipesController < ApplicationController
 
   def ingredient_params
     params.permit({ingredients: [:name,:unit,:amount]}).require(:ingredients)
+  end
+
+  def to_bool!(value)
+    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(value)
   end
 end
