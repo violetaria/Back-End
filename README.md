@@ -715,7 +715,7 @@ If unsuccessful, you will receive:
 
 ###<a name="recipe-delete"></a>Delete Recipe 
 
-This request allows an authenticated user to delete an existing recipe.  Users can only delete recipes they have created.
+This request allows an authenticated user to delete an existing recipe.  Users can only delete recipes they have created.  All directions and ingredient amounts for that recipe will be deleted as well.
 
 **URL** /recipes/:id
 
