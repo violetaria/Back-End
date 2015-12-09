@@ -15,7 +15,7 @@ class Recipe < ActiveRecord::Base
   validates_uniqueness_of :name, scope: [:user_id]
 
   def category_names
-    self.categories.map { |cat| cat[:name] }
+    self.categories.map { |cat| { name: cat[:name], id: cat[:id] } }
   end
 
   def category_names=(new_categories)
