@@ -52,11 +52,7 @@ gem "paperclip", "~> 4.3"
 # AWS for storage of images
 gem 'aws-sdk', '< 2.0.0'
 
-# OCR gem
-gem "rtesseract"
 
-# Rmagick gem as required by rtesseract
-gem "rmagick", "~> 2.13.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
