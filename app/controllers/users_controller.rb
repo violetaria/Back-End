@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def new
     @user = User.new(email: params["email"], password: params["password"])
     if @user.save
-      UserMailer.create_welcome_email(@user).deliver_now
+      UserMailer.welcome_email(@user).deliver_now
       render "new.json.jbuilder", status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
