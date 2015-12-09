@@ -56,6 +56,9 @@ group :development, :test do
   gem 'byebug'
 
   gem 'pry'
+
+  # use bullet to look for DB query optimizations
+  gem "bullet"
 end
 
 group :development do

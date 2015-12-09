@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
   def show
 #    binding.pry
     categories = Category.find_by!(id: params[:id])
-    @recipes = categories.recipes.includes(:recipe_categories)
+    @recipes = categories.recipes.includes(:recipe_ingredients,:categories)
                          .references(:recipe_categories)
                          .where("recipe_categories.category_id = ?",params[:id])
     render "show.json.jbuilder", status: :ok
