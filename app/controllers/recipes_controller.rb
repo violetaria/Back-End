@@ -2,7 +2,7 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @recipe = current_user.recipes.includes(:directions).includes(:categories).find_by!(id: params[:id])
+    @recipe = current_user.recipes.includes(:categories).find_by!(id: params[:id])
 
     render "show.json.jbuilder", status: :ok
   end
@@ -17,7 +17,7 @@ class RecipesController < ApplicationController
         category.name
       end
 
-      current_user.recipes.map do |recipe|
+      current_user.recipes.includes(:recipe_ingredients,:categories).map do |recipe|
         recipe.categories.each do |category|
           @categorized_recipes[category.name.to_sym].push(recipe)
         end

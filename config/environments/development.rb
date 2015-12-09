@@ -58,4 +58,5 @@ Rails.application.configure do
     Bullet.console = false
     Bullet.rails_logger = true
   end
+
 end
