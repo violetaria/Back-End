@@ -24,7 +24,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def steps
-    self.directions.order(:id).map { |step| step[:step] }
+    self.directions.map { |step| step[:step] }
   end
 
   def steps=(new_steps)

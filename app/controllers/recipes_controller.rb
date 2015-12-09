@@ -17,7 +17,7 @@ class RecipesController < ApplicationController
         category.name
       end
 
-      current_user.recipes.includes(:recipe_ingredients,:categories).map do |recipe|
+      current_user.recipes.includes(:recipe_ingredients,:categories, :directions).order("directions.id").map do |recipe|
         recipe.categories.each do |category|
           @categorized_recipes[category.name.to_sym].push(recipe)
         end
@@ -25,7 +25,7 @@ class RecipesController < ApplicationController
 
       render "index_categorized.json.jbuilder", status: :ok
     else
-      @recipes = current_user.recipes
+      @recipes = current_user.recipes.includes(:categories,:recipe_ingredients,:directions).order("directions.id")
       render "index.json.jbuilder", status: :ok
     end
   end
@@ -54,7 +54,6 @@ class RecipesController < ApplicationController
       render "retrieve_api.json.jbuilder", status: :ok
     end
   end
-
 
   def import_api
     api = Spoonacular.new
