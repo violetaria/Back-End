@@ -7,31 +7,11 @@ class CategoriesController < ApplicationController
   end
 
   def show
-#    binding.pry
     categories = Category.find_by!(id: params[:id])
-    @recipes = categories.recipes.includes(:recipe_ingredients,:categories)
+    @recipes = categories.recipes.includes(:recipe_ingredients,:categories, :directions)
                          .references(:recipe_categories)
                          .where("recipe_categories.category_id = ?",params[:id])
     render "show.json.jbuilder", status: :ok
   end
 
-  ## TODO Not implemented yet
-  def create
-    @category = current_user.categories.new(name: params[:name])
-    if @category.save
-      render "create.json.jbuilder", status: :created
-    else
-      render json: { errors: @category.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
-
-  ## TODO Not implemented yet
-  def update
-
-  end
-
-  ## TODO Not implemented yet
-  def destroy
-
-  end
 end
