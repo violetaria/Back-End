@@ -25,8 +25,9 @@ class SpoonacularFormatter
         step.text
       end
     else
+      data["text"] ||= ""
       data["text"].split("\n").map do |step|
-        step.lstrip.rstrip
+        step.lstrip.rstrip unless step.nil?
       end
     end
   end
