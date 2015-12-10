@@ -33,10 +33,10 @@ class Recipe < ActiveRecord::Base
   end
 
   def ingredient_amounts
-    self.recipe_ingredients.map do |x|
-     ingredient = Ingredient.find_by!(id: x.ingredient_id)
-     Hash[:name,ingredient.name,:amount,x[:amount],:unit,x[:unit]]
+    self.ingredients.includes(:recipe_ingredients).select("ingredients.name,recipe_ingredients.unit,recipe_ingredients.amount").map do |item|
+      Hash[:name,item[:name],:amount,item[:amount],:unit,item[:unit]]
     end
+
   end
 
   def ingredient_amounts=(new_amounts)
