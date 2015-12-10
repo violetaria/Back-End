@@ -15,12 +15,14 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 * [Recipe Methods](#recipe-methods)
 	* [Create](#recipe-create)
 	* [Retrieve](#recipe-retrieve)
-	* [List Recipes](#recipe-list)
+	* [List All Recipes](#recipe-list)
 	* [Update](#recipe-update)
 	* [Delete](#recipe-delete)
 	* [Search from API](#recipe-search-api)
 	* [Import from API](#recipe-import-api)
 	* [Retrieve from API](#recipe-retrieve-api)
+* [OCR Methods](#ocr-methods)
+	* [Process Image](#ocr-process) 
 	
 ##<a name="user-methods"></a>User Methods
 
@@ -1225,5 +1227,61 @@ If unsuccessful, you will receive:
 ```json
 {
   "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
+
+##<a name="ocr-methods"></a>OCR Methods
+
+###<a name="ocr-progress"></a>Process Image
+
+This request allows an authenticated user to send an image and have it processed by the RTesseract gem.  The API will return back an array with the text read from the picture.
+
+####POST `/ocr/process_image`
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| Form Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| my_image | Image File | ​*(Required)*​ Image of text to process|
+
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true",
+  "results": [
+    "O O",
+    "MANGO BREAD",
+    "Pre heat oven to 350 degrees",
+    "Do not grease pans",
+    "Mix 2 cups mashed mango with 1 cup of Crisco oil and 1 1/2 cups sugar.",
+    "Beat in 3 eggs. Sift in 2 cups all purpose ﬂour plus 2 tsp baking soda plus l",
+    "tsp salt plus 2 tsp cinnamon plus pour in 1 tsp vanilla. Mix well !! Stir in 3%",
+    "cup walnuts. Pour into loaf tins and bake 1— 1 1/2 hours till done.",
+    "Makes 2 large or 4 mini loaves",
+    "Bake: mango loaves 35 minutes",
+    "Muffins 20 — 25 minutes",
+    "Mini mufﬁns 15 minutes"
+  ]
+}        
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 401 - Not Authorized
+    
+```json
+{
+  "error": "Could not authenticate with auth_token:''"
 }
 ```
