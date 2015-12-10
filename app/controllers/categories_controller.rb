@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @recipes = current_user.recipes.includes(:recipe_ingredients,:categories)
+    @recipes = current_user.recipes.includes(:directions,:recipe_ingredients,:categories)
                    .references(:recipe_categories)
                    .where("recipe_categories.category_id = ?",params[:id])
 
