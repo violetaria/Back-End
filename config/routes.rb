@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     # resources :directions, only: [ :update, :destroy ]
   end
 
+  post "recipes/process_image", to: "recipes#process_image"
+
   post "api/recipes/import", to: "recipes#import_api"
   get "api/recipes/search", to: "recipes#search_api"
   get "api/recipes/:id", to: "recipes#retrieve_api"

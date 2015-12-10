@@ -112,6 +112,12 @@ class RecipesController < ApplicationController
     end
   end
 
+  def process_image
+    ocr = OCRFormatter.new
+    @results = ocr.import_recipe(params[:my_image].tempfile.path)
+    render "process_image.json.jbuilder", status: :ok
+  end
+
   private
   def recipe_params
     params.permit(:name, :my_image)
