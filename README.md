@@ -28,9 +28,7 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 
 This request will create a new user in the system and return back an auth\_token back.  The auth\_token must be used for all subsequent requests (except for User Login).
 
-**URL** /users/new
-
-**Method** POST
+####POST `/users/new`
 
 **Request**
     
@@ -50,9 +48,9 @@ If successful, you will receive:
 ```json
 {
   "success": "true",
-  "email": "kelly@email.com",
-  "auth-token": "254cc2078c4e2388d35e187f5cd5cfcb"
-}           
+  "email": "YOUR@EMAIL.COM",
+  "auth_token": "AUTH_TOKEN"
+}          
 ```
 
 If unsuccessful, you will receive:
@@ -71,9 +69,7 @@ If unsuccessful, you will receive:
 
 This request will allow an existing user in the system to send their email and password and return back an auth\_token back.  The auth\_token must be used for all subsequent requests (except for User Registration).
 
-**URL** /users
-
-**Method** POST
+####POST `/users`
 
 **Request**
     
@@ -92,9 +88,9 @@ If successful, you will receive:
 ```json
 {
   "success": "true",
-  "email": "terri@email.com",
-  "auth-token": "993e9fa29ee570454072443649f0c2fa"
-}         
+  "email": "YOUR@EMAIL.COM",
+  "auth_token": "AUTH_TOKEN"
+}        
 ```
 
 If unsuccessful, you will receive:
@@ -113,9 +109,7 @@ If unsuccessful, you will receive:
 
 This request will allow an authenticated user to list all categories in the system.
 
-**URL** /categories
-
-**Method** GET
+####GET `/categories`
 
 **Request**
     
@@ -157,7 +151,7 @@ If successful, you will receive:
       "name": "Side Dishes"
     }
   ]
-}    
+}
 ```
 
 If unsuccessful, you will receive:
@@ -174,9 +168,8 @@ If unsuccessful, you will receive:
 
 This request will allow an authenticated user to list all recipes within the category in the system.
 
-**URL** /categories/:id/recipes
+####GET `/categories/:id/recipes`
 
-**Method** GET
 
 **Request**
     
@@ -191,7 +184,7 @@ This request will allow an authenticated user to list all recipes within the cat
 
 **Response**
 
-Note: my_image will be set to "" if there is no picture uploaded by the user
+**Note:** *my_image will be set to "" if there is no picture uploaded by the user*
 
 If successful, you will receive:
 
@@ -200,38 +193,41 @@ If successful, you will receive:
 ```json
 {
   "success": "true",
-  "recipes": [
+  "id": 26,
+  "name": "Easy Chocolate Cake",
+  "directions": [
+    "Turn on oven to 350",
+    "Mix Eggs, Chocolate, Flour, and Sugar",
+    "Pour into a cast iron pan",
+    "Bake in oven for 15-20 minutes"
+  ],
+  "ingredients": [
     {
-      "id": 17,
-      "name": "chocolate",
-      "categories": [
-        "Desserts"
-      ],
-      "directions": [
-        "Turn on oven to 350",
-        "Mix eggs, bacon, and cheese together in a large bowl",
-        "Pour into a cast iron pan",
-        "Bake in oven for 15-20 minutes"
-      ],
-      "ingredients": [
-        {
-          "name": "carrots",
-          "amount": 2,
-          "unit": "TBS"
-        },
-        {
-          "name": "flour",
-          "amount": 2.5,
-          "unit": "cups"
-        }
-      ],
-  	"source_name": "Foodnetwork",
-  	"source_url": "http://www.foodnetwork.com/recipes/guy-fieri/four-bean-relish-recipe.html",
-  	"source_image_url": "https://spoonacular.com/recipeImages/Four-Bean-Relish-311491.jpeg",
-  	"my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/005/original/28980-200.png?1449505114"      
+      "name": "flour",
+      "amount": 2,
+      "unit": "Cups"
+    },
+    {
+      "name": "sugar",
+      "amount": 2.5,
+      "unit": "cups"
+    },
+    {
+      "name": "eggs",
+      "amount": 2,
+      "unit": ""
+    },
+    {
+      "name": "chocolate bars",
+      "amount": 3,
+      "unit": "bars"
     }
-  ]
-} 
+  ],
+  "source_name": null,
+  "source_url": null,
+  "source_image_url": null,
+  "my_image": ""
+}
 ```
 
 If unsuccessful, you will receive:
@@ -251,9 +247,7 @@ If unsuccessful, you will receive:
 
 This request allows an authenticated user to create a new recipe.
 
-**URL** /recipes
-
-**Method** POST
+####POST `/recipes`
 
 **Request**
     
@@ -297,7 +291,6 @@ This request allows an authenticated user to create a new recipe.
   			}
   		],
   		"my_image": "path to your local image of the recipe"      
-
   }
 ```
 
@@ -310,9 +303,41 @@ If successful, you will receive:
 ```json
 {
   "success": "true",
-  "id": "1,
-  "name": "Cheesy Eggs"
-}           
+  "id": 28,
+  "name": "Quick Chocolate Cake",
+  "directions": [
+    "Turn on oven to 350",
+    "Mix Eggs, Chocolate, Flour, and Sugar",
+    "Pour into a cast iron pan",
+    "Bake in oven for 15-20 minutes"
+  ],
+  "ingredients": [
+    {
+      "name": "flour",
+      "amount": 2,
+      "unit": "Cups"
+    },
+    {
+      "name": "sugar",
+      "amount": 2.5,
+      "unit": "cups"
+    },
+    {
+      "name": "eggs",
+      "amount": 2,
+      "unit": ""
+    },
+    {
+      "name": "chocolate bars",
+      "amount": 3,
+      "unit": "bars"
+    }
+  ],
+  "source_name": null,
+  "source_url": null,
+  "source_image_url": null,
+  "my_image": ""
+}         
 ```
 
 If unsuccessful, you will receive:
@@ -332,9 +357,7 @@ If unsuccessful, you will receive:
 
 This request allows an authenticated user to get a single recipe and all related entities.  
 
-**URL** /recipes/:id
-
-**Method** GET
+####GET `/recipes/:id`
 
 **Request**
     
@@ -354,272 +377,50 @@ If successful, you will receive:
 
     Status Code: 200 - OK
     
-Categorized = TRUE
-
 ```json
 {
   "success": "true",
-  "id": 31,
-  "name": "Four-Bean Relish",
+  "id": 28,
+  "name": "Quick Chocolate Cake",
   "categories": [
-    "Desserts"
+    {
+      "name": "Desserts",
+      "id": 4
+    }
   ],
   "directions": [
-    "Directions",
-    "Whisk the red wine vinegar, balsamic vinegar, olive oil, 1/2 teaspoon sea salt, and pepper to taste in a large bowl.Add the scallions, red onion, Peppadew peppers, honey, white beans, chickpeas, pinto beans and black beans and toss to coat. Let sit in the refrigerator at least 2 hours to allow the flavors to blend. Mix thoroughly before serving.Photograph by Kat Teutsch"
+    "Turn on oven to 350",
+    "Mix Eggs, Chocolate, Flour, and Sugar",
+    "Pour into a cast iron pan",
+    "Bake in oven for 15-20 minutes"
   ],
   "ingredients": [
     {
-      "name": "balsamic vinegar",
-      "amount": 0.25,
-      "unit": "cup"
+      "name": "flour",
+      "amount": 2,
+      "unit": "Cups"
     },
     {
-      "name": "bell peppers",
-      "amount": 0.25,
-      "unit": "cup"
+      "name": "sugar",
+      "amount": 2.5,
+      "unit": "cups"
     },
     {
-      "name": "canned black beans",
-      "amount": 12,
-      "unit": "ounce"
+      "name": "eggs",
+      "amount": 2,
+      "unit": ""
     },
     {
-      "name": "canned chickpeas",
-      "amount": 12,
-      "unit": "ounce"
-    },
-    {
-      "name": "canned pinto beans",
-      "amount": 12,
-      "unit": "ounce"
-    },
-    {
-      "name": "canned white beans",
-      "amount": 12,
-      "unit": "ounce"
-    },
-    {
-      "name": "honey",
+      "name": "chocolate bars",
       "amount": 3,
-      "unit": "tablespoons"
-    },
-    {
-      "name": "olive oil",
-      "amount": 0.333333333333333,
-      "unit": "cup"
-    },
-    {
-      "name": "onion",
-      "amount": 0.75,
-      "unit": "cup"
-    },
-    {
-      "name": "red wine vinegar",
-      "amount": 0.333333333333333,
-      "unit": "cup"
-    },
-    {
-      "name": "scallions",
-      "amount": 0.25,
-      "unit": "cup"
-    },
-    {
-      "name": "sea salt",
-      "amount": 8,
-      "unit": "servings"
+      "unit": "bars"
     }
   ],
-  "source_name": "Foodnetwork",
-  "source_url": "http://www.foodnetwork.com/recipes/guy-fieri/four-bean-relish-recipe.html",
-  "source_image_url": "https://spoonacular.com/recipeImages/Four-Bean-Relish-311491.jpeg",
+  "source_name": null,
+  "source_url": null,
+  "source_image_url": null,
   "my_image": ""
-}    
-```
-
-Categorized = FALSE
-
-```json
-{
-  "success": "true",
-  "recipes": [
-    {
-      "name": "Test",
-      "id": 25,
-      "categories": [
-        "Drinks"
-      ],
-      "directions": [
-        "Make the coconut rice by adding the water, coconut milk, sugar, and salt to a large saucepan. Bring to a boil, then stir in rice. Return to a boil. Reduce heat to low, cover and cook for 20 minutes. Remove from heat and let stand 10 minutes, before fluffing with a fork.",
-        "Meanwhile, make the teriyaki sauce by adding all of the sauce ingredients to a small saucepan over medium heat. Bring to a boil, stirring constantly, and boil for about 1 minute. The sauce should be thick enough to coat the back of the spoon.",
-        "Pour 1/4 cup of the teriyaki sauce over the raw chicken and set aside to marinate for at least 15 minutes.",
-        "Prepare your grill and heat it to medium.",
-        "If you have a vegetable grill basket to grill the vegetables in, then chop them and grill them in the basket. If not, cut the zucchini and onion into large chunks and leave the mini bell peppers whole. Drizzle some olive oil over the vegetables and over the pineapple spears. Grill the vegetables for just a few minutes on each side and then remove to a plate. Grill the pineapple next by placing the pineapple spears directly on the grill. Grill for about 2 minutes on each side, and remove to a plate. Lastly, place the chicken on the grill. Cook for about 2 minutes on each side, or until cooked through. Remove to a plate to rest before slicing.",
-        "To serve, add coconut rice to each serving bowl. Top with grilled veggies, pineapple and chicken. Drizzle a little of the remaining teriyaki sauce on top. Sprinkle with toasted coconut, if desired."
-      ],
-      "ingredients": [
-        {
-          "name": "rice vinegar",
-          "amount": 2,
-          "unit": "Tbsp"
-        },
-        {
-          "name": "soy sauce",
-          "amount": 0.5,
-          "unit": "cup"
-        },
-        {
-          "name": "jasmine rice",
-          "amount": 2,
-          "unit": "cups"
-        },
-        {
-          "name": "water",
-          "amount": 2,
-          "unit": "cups"
-        },
-        {
-          "name": "unsweetened coconut milk",
-          "amount": 1.5,
-          "unit": "cups"
-        },
-        {
-          "name": "salt",
-          "amount": 1,
-          "unit": "tsp"
-        },
-        {
-          "name": "light brown sugar",
-          "amount": 2,
-          "unit": "tsp"
-        },
-        {
-          "name": "sweetened coconut flakes",
-          "amount": 0.5,
-          "unit": "cup"
-        },
-        {
-          "name": "red onion",
-          "amount": 1,
-          "unit": ""
-        },
-        {
-          "name": "bell peppers",
-          "amount": 4,
-          "unit": ""
-        },
-        {
-          "name": "pineapple",
-          "amount": 0.5,
-          "unit": ""
-        },
-        {
-          "name": "zucchini",
-          "amount": 1,
-          "unit": ""
-        },
-        {
-          "name": "chicken tenders",
-          "amount": 4,
-          "unit": ""
-        },
-        {
-          "name": "sesame oil",
-          "amount": 1,
-          "unit": "Tbsp"
-        },
-        {
-          "name": "brown sugar",
-          "amount": 0.25,
-          "unit": "cup"
-        },
-        {
-          "name": "honey",
-          "amount": 1,
-          "unit": "Tbsp"
-        },
-        {
-          "name": "ground ginger",
-          "amount": 0.75,
-          "unit": "tsp"
-        },
-        {
-          "name": "garlic",
-          "amount": 1,
-          "unit": "clove"
-        },
-        {
-          "name": "cornstarch",
-          "amount": 2,
-          "unit": "tsp"
-        },
-        {
-          "name": "crushed red pepper",
-          "amount": 0.25,
-          "unit": "tsp"
-        }
-      ],
-      "source_name": null,
-      "source_url": null,
-      "source_image_url": null,
-      "my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/025/original/10-512.png?1449520081"
-    },
-    {
-      "name": "Sour Cherry Pudding Cake",
-      "id": 30,
-      "categories": [
-        "Drinks"
-      ],
-      "directions": [
-        "Preheat oven to 375 degrees F (190 degrees C). Grease a 9x13-inch baking dish.",
-        "In a bowl, stir together the flour, 1 cup of sugar, baking powder, milk, and vegetable oil to make a smooth batter; scrape batter into the prepared baking dish.",
-        "In a separate bowl, stir the cherries with 1 cup of sugar and the almond extract; spoon the cherry mixture over the batter.",
-        "Bake in the preheated oven until the cake is lightly browned and a toothpick inserted into the center of the cake comes out clean, about 30 minutes.",
-        "Kitchen-Friendly View"
-      ],
-      "ingredients": [
-        {
-          "name": "almond extract",
-          "amount": 0.25,
-          "unit": "teaspoon"
-        },
-        {
-          "name": "baking powder",
-          "amount": 1,
-          "unit": "tablespoon"
-        },
-        {
-          "name": "flour",
-          "amount": 2,
-          "unit": "cups"
-        },
-        {
-          "name": "milk",
-          "amount": 1,
-          "unit": "cup"
-        },
-        {
-          "name": "tart cherries",
-          "amount": 3,
-          "unit": "cups"
-        },
-        {
-          "name": "vegetable oil",
-          "amount": 2,
-          "unit": "tablespoons"
-        },
-        {
-          "name": "white sugar",
-          "amount": 1,
-          "unit": "cup"
-        }
-      ],
-      "source_name": "Allrecipes",
-      "source_url": "http://allrecipes.com/recipe/sour-cherry-pudding-cake/Detail.aspx",
-      "source_image_url": "https://spoonacular.com/recipeImages/Sour-Cherry-Pudding-Cake-342491.jpg",
-      "my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/030/original/12279085_10207822490338393_5100797063626879098_n.jpg?1449521401"
-    },
-    ]
+}
 ```
 
 If unsuccessful, you will receive:
@@ -636,9 +437,7 @@ If unsuccessful, you will receive:
 
 This request allows an authenticated user to get all of their recipes and all related entities.  There are two ways to call this API.  If you send a URL parameter with categorized=false, it will return all the recipes uncategorized and you will get an array of recipes.  Otherwise, the recipes will be ordered by Category and you will get back an array of hashes with the recipes for each category.
 
-**URL** /recipes
-
-**Method** GET
+####GET `/recipes?categorized=:categorized_boolean`
 
 **Request**
     
@@ -646,40 +445,44 @@ This request allows an authenticated user to get all of their recipes and all re
 | ------------- |:-------------:|:----- |
 | auth-token | String | ​*(Required)*​ existing users auth-token  |
 
-| URL Parameters        | Type           | Description  |
+| URL Params        | Type           | Description  |
 | ------------- |:-------------:|:----- |
-| categorized | boolean | ​*(optional)*​ default: true, if you set to false, the recipes will not be organized by category  |
+| categorized | boolean | ​*(optional)*​ **default: true**, if you set to false, the recipes will not be organized by category  |
 
 **Response**
+
 
 If successful, you will receive:
 
     Status Code: 200 - OK
     
+**Categorized = TRUE** 
+
 ```json
- {
+{
   "success": "true",
   "recipes": [
     {
       "category": "Drinks",
+      "category_id": 1,
       "recipes": [
         {
-          "name": "Chocolate Cookies 2",
-          "id": 19,
+          "name": "Chocolate Cake",
+          "id": 25,
           "directions": [
             "Turn on oven to 350",
-            "Mix eggs, bacon, and cheese together in a large bowl",
+            "Mix Eggs, Chocolate, Flour, and Sugar",
             "Pour into a cast iron pan",
             "Bake in oven for 15-20 minutes"
           ],
           "ingredients": [
             {
-              "name": "carrots",
+              "name": "flour",
               "amount": 2,
-              "unit": "TBS"
+              "unit": "Cups"
             },
             {
-              "name": "flour",
+              "name": "sugar",
               "amount": 2.5,
               "unit": "cups"
             }
@@ -693,142 +496,352 @@ If successful, you will receive:
     },
     {
       "category": "Appetizers",
+      "category_id": 2,
       "recipes": []
     },
     {
       "category": "Main Courses",
-      "recipes": []
-    },
-    {
-      "category": "Desserts",
+      "category_id": 3,
       "recipes": [
         {
-          "name": "Zucchini and Shrimp Fritters",
+          "name": "Bacon and Cheese Stuffed Burgers (Jucy Lucy Burgers)",
           "id": 27,
           "directions": [
-            "Make the coconut rice by adding the water, coconut milk, sugar, and salt to a large saucepan. Bring to a boil, then stir in rice. Return to a boil. Reduce heat to low, cover and cook for 20 minutes. Remove from heat and let stand 10 minutes, before fluffing with a fork.",
-            "Meanwhile, make the teriyaki sauce by adding all of the sauce ingredients to a small saucepan over medium heat. Bring to a boil, stirring constantly, and boil for about 1 minute. The sauce should be thick enough to coat the back of the spoon.",
-            "Pour 1/4 cup of the teriyaki sauce over the raw chicken and set aside to marinate for at least 15 minutes.",
-            "Prepare your grill and heat it to medium.",
-            "If you have a vegetable grill basket to grill the vegetables in, then chop them and grill them in the basket. If not, cut the zucchini and onion into large chunks and leave the mini bell peppers whole. Drizzle some olive oil over the vegetables and over the pineapple spears. Grill the vegetables for just a few minutes on each side and then remove to a plate. Grill the pineapple next by placing the pineapple spears directly on the grill. Grill for about 2 minutes on each side, and remove to a plate. Lastly, place the chicken on the grill. Cook for about 2 minutes on each side, or until cooked through. Remove to a plate to rest before slicing.",
-            "To serve, add coconut rice to each serving bowl. Top with grilled veggies, pineapple and chicken. Drizzle a little of the remaining teriyaki sauce on top. Sprinkle with toasted coconut, if desired."
+            "Divide beef into 4 equal portions. Form each portion into a tightly packed ball. Working with one ball at a time divide into 2 equal portions. Flatten them into a circle on a cutting board. Fold a slice of cheese in half twice so you have 4 squares of cheese and place in middle of burger. Cover the cheese with bacon crumbles and place the other patty on top so. Crimp the edges together to seal them, the cheese will make a bump on top. Repeat until all 4 burgers are ready. Season the tops with salt and pepper.",
+            "Heat a large cast iron or heavy-bottomed skillet over medium heat (alternately you can grill them) and cook burgers over heat 5 minutes on first side (the cheese bump should facing up). Flip the burgers and poke the tops of the burgers with a toothpick to let steam escape. Cook 3-4 minutes. Remove from heat and let burgers rest a few minutes (especially when serving to children) as cheese is molten hot and can cause burns. Serve on buns with the condiments of your choice."
           ],
           "ingredients": [
             {
-              "name": "rice vinegar",
-              "amount": 2,
-              "unit": "Tbsp"
+              "name": "condiments and toppings",
+              "amount": 4,
+              "unit": "servings"
             },
             {
-              "name": "soy sauce",
-              "amount": 0.5,
-              "unit": "cup"
-            },
-            {
-              "name": "jasmine rice",
-              "amount": 2,
-              "unit": "cups"
-            },
-            {
-              "name": "water",
-              "amount": 2,
-              "unit": "cups"
-            },
-            {
-              "name": "unsweetened coconut milk",
-              "amount": 1.5,
-              "unit": "cups"
-            },
-            {
-              "name": "salt",
-              "amount": 1,
-              "unit": "tsp"
-            },
-            {
-              "name": "light brown sugar",
-              "amount": 2,
-              "unit": "tsp"
-            },
-            {
-              "name": "sweetened coconut flakes",
-              "amount": 0.5,
-              "unit": "cup"
-            },
-            {
-              "name": "red onion",
-              "amount": 1,
-              "unit": ""
-            },
-            {
-              "name": "bell peppers",
+              "name": "buns",
               "amount": 4,
               "unit": ""
             },
             {
-              "name": "pineapple",
-              "amount": 0.5,
-              "unit": ""
+              "name": "ground beef",
+              "amount": 1.25,
+              "unit": "pounds"
             },
             {
-              "name": "zucchini",
-              "amount": 1,
-              "unit": ""
-            },
-            {
-              "name": "chicken tenders",
+              "name": "bacon",
               "amount": 4,
-              "unit": ""
+              "unit": "slices"
             },
             {
-              "name": "sesame oil",
-              "amount": 1,
-              "unit": "Tbsp"
+              "name": "american cheese",
+              "amount": 4,
+              "unit": "slices"
             },
             {
-              "name": "brown sugar",
-              "amount": 0.25,
-              "unit": "cup"
-            },
-            {
-              "name": "honey",
-              "amount": 1,
-              "unit": "Tbsp"
-            },
-            {
-              "name": "ground ginger",
-              "amount": 0.75,
-              "unit": "tsp"
-            },
-            {
-              "name": "garlic",
-              "amount": 1,
-              "unit": "clove"
-            },
-            {
-              "name": "cornstarch",
-              "amount": 2,
-              "unit": "tsp"
-            },
-            {
-              "name": "crushed red pepper",
-              "amount": 0.25,
-              "unit": "tsp"
+              "name": "coarse salt",
+              "amount": 4,
+              "unit": "servings"
             }
           ],
-         	"source_name": "Allrecipes",
-  			"source_url": "http://allrecipes.com/recipe/sour-cherry-pudding-cake/Detail.aspx",
-			"source_image_url": "https://spoonacular.com/recipeImages/Sour-Cherry-Pudding-Cake-342491.jpg",
-			"my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/030/original/12279085_10207822490338393_5100797063626879098_n.jpg?1449521401"
+          "source_name": "Cinnamon Spice and Everything Nice",
+          "source_url": "http://www.cinnamonspiceandeverythingnice.com/bacon-and-cheese-stuffed-burgers-jucy-lucy-burgers/",
+          "source_image_url": "https://spoonacular.com/recipeImages/Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg",
+          "my_image": ""
+        }
+      ]
+    },
+    {
+      "category": "Desserts",
+      "category_id": 4,
+      "recipes": [
+        {
+          "name": "Chocolate Cake",
+          "id": 25,
+          "directions": [
+            "Turn on oven to 350",
+            "Mix Eggs, Chocolate, Flour, and Sugar",
+            "Pour into a cast iron pan",
+            "Bake in oven for 15-20 minutes"
+          ],
+          "ingredients": [
+            {
+              "name": "flour",
+              "amount": 2,
+              "unit": "Cups"
+            },
+            {
+              "name": "sugar",
+              "amount": 2.5,
+              "unit": "cups"
+            }
+          ],
+          "source_name": null,
+          "source_url": null,
+          "source_image_url": null,
+          "my_image": ""
+        },
+        {
+          "name": "Easy Chocolate Cake",
+          "id": 26,
+          "directions": [
+            "Turn on oven to 350",
+            "Mix Eggs, Chocolate, Flour, and Sugar",
+            "Pour into a cast iron pan",
+            "Bake in oven for 15-20 minutes"
+          ],
+          "ingredients": [
+            {
+              "name": "chocolate bars",
+              "amount": 3,
+              "unit": "bars"
+            },
+            {
+              "name": "eggs",
+              "amount": 2,
+              "unit": ""
+            },
+            {
+              "name": "sugar",
+              "amount": 2.5,
+              "unit": "cups"
+            },
+            {
+              "name": "flour",
+              "amount": 2,
+              "unit": "Cups"
+            }
+          ],
+          "source_name": null,
+          "source_url": null,
+          "source_image_url": null,
+          "my_image": ""
+        },
+        {
+          "name": "Quick Chocolate Cake",
+          "id": 28,
+          "directions": [
+            "Turn on oven to 350",
+            "Mix Eggs, Chocolate, Flour, and Sugar",
+            "Pour into a cast iron pan",
+            "Bake in oven for 15-20 minutes"
+          ],
+          "ingredients": [
+            {
+              "name": "chocolate bars",
+              "amount": 3,
+              "unit": "bars"
+            },
+            {
+              "name": "flour",
+              "amount": 2,
+              "unit": "Cups"
+            },
+            {
+              "name": "sugar",
+              "amount": 2.5,
+              "unit": "cups"
+            },
+            {
+              "name": "eggs",
+              "amount": 2,
+              "unit": ""
+            }
+          ],
+          "source_name": null,
+          "source_url": null,
+          "source_image_url": null,
+          "my_image": ""
         }
       ]
     },
     {
       "category": "Salads and Soups",
+      "category_id": 5,
       "recipes": []
     },
     {
       "category": "Side Dishes",
+      "category_id": 6,
       "recipes": []
+    }
+  ]
+}
+```
+
+**Categorized=FALSE**
+
+```json
+{
+  "success": "true",
+  "recipes": [
+    {
+      "name": "Chocolate Cake",
+      "id": 25,
+      "categories": [
+        {
+          "name": "Drinks",
+          "id": 1
+        },
+        {
+          "name": "Desserts",
+          "id": 4
+        }
+      ],
+      "directions": [
+        "Turn on oven to 350",
+        "Mix Eggs, Chocolate, Flour, and Sugar",
+        "Pour into a cast iron pan",
+        "Bake in oven for 15-20 minutes"
+      ],
+      "ingredients": [
+        {
+          "name": "flour",
+          "amount": 2,
+          "unit": "Cups"
+        },
+        {
+          "name": "sugar",
+          "amount": 2.5,
+          "unit": "cups"
+        }
+      ],
+      "source_name": null,
+      "source_url": null,
+      "source_image_url": null,
+      "my_image": ""
+    },
+    {
+      "name": "Easy Chocolate Cake",
+      "id": 26,
+      "categories": [
+        {
+          "name": "Desserts",
+          "id": 4
+        }
+      ],
+      "directions": [
+        "Turn on oven to 350",
+        "Mix Eggs, Chocolate, Flour, and Sugar",
+        "Pour into a cast iron pan",
+        "Bake in oven for 15-20 minutes"
+      ],
+      "ingredients": [
+        {
+          "name": "chocolate bars",
+          "amount": 3,
+          "unit": "bars"
+        },
+        {
+          "name": "eggs",
+          "amount": 2,
+          "unit": ""
+        },
+        {
+          "name": "sugar",
+          "amount": 2.5,
+          "unit": "cups"
+        },
+        {
+          "name": "flour",
+          "amount": 2,
+          "unit": "Cups"
+        }
+      ],
+      "source_name": null,
+      "source_url": null,
+      "source_image_url": null,
+      "my_image": ""
+    },
+    {
+      "name": "Bacon and Cheese Stuffed Burgers (Jucy Lucy Burgers)",
+      "id": 27,
+      "categories": [
+        {
+          "name": "Main Courses",
+          "id": 3
+        }
+      ],
+      "directions": [
+        "Divide beef into 4 equal portions. Form each portion into a tightly packed ball. Working with one ball at a time divide into 2 equal portions. Flatten them into a circle on a cutting board. Fold a slice of cheese in half twice so you have 4 squares of cheese and place in middle of burger. Cover the cheese with bacon crumbles and place the other patty on top so. Crimp the edges together to seal them, the cheese will make a bump on top. Repeat until all 4 burgers are ready. Season the tops with salt and pepper.",
+        "Heat a large cast iron or heavy-bottomed skillet over medium heat (alternately you can grill them) and cook burgers over heat 5 minutes on first side (the cheese bump should facing up). Flip the burgers and poke the tops of the burgers with a toothpick to let steam escape. Cook 3-4 minutes. Remove from heat and let burgers rest a few minutes (especially when serving to children) as cheese is molten hot and can cause burns. Serve on buns with the condiments of your choice."
+      ],
+      "ingredients": [
+        {
+          "name": "condiments and toppings",
+          "amount": 4,
+          "unit": "servings"
+        },
+        {
+          "name": "buns",
+          "amount": 4,
+          "unit": ""
+        },
+        {
+          "name": "ground beef",
+          "amount": 1.25,
+          "unit": "pounds"
+        },
+        {
+          "name": "bacon",
+          "amount": 4,
+          "unit": "slices"
+        },
+        {
+          "name": "american cheese",
+          "amount": 4,
+          "unit": "slices"
+        },
+        {
+          "name": "coarse salt",
+          "amount": 4,
+          "unit": "servings"
+        }
+      ],
+      "source_name": "Cinnamon Spice and Everything Nice",
+      "source_url": "http://www.cinnamonspiceandeverythingnice.com/bacon-and-cheese-stuffed-burgers-jucy-lucy-burgers/",
+      "source_image_url": "https://spoonacular.com/recipeImages/Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg",
+      "my_image": ""
+    },
+    {
+      "name": "Quick Chocolate Cake",
+      "id": 28,
+      "categories": [
+        {
+          "name": "Desserts",
+          "id": 4
+        }
+      ],
+      "directions": [
+        "Turn on oven to 350",
+        "Mix Eggs, Chocolate, Flour, and Sugar",
+        "Pour into a cast iron pan",
+        "Bake in oven for 15-20 minutes"
+      ],
+      "ingredients": [
+        {
+          "name": "chocolate bars",
+          "amount": 3,
+          "unit": "bars"
+        },
+        {
+          "name": "flour",
+          "amount": 2,
+          "unit": "Cups"
+        },
+        {
+          "name": "sugar",
+          "amount": 2.5,
+          "unit": "cups"
+        },
+        {
+          "name": "eggs",
+          "amount": 2,
+          "unit": ""
+        }
+      ],
+      "source_name": null,
+      "source_url": null,
+      "source_image_url": null,
+      "my_image": ""
     }
   ]
 }
@@ -848,9 +861,7 @@ If unsuccessful, you will receive:
 
 This request allows an authenticated user to update an existing recipe.  Users can only update recipes that they have created.
 
-**URL** /recipes/:id
-
-**Method** PATCH
+####PATCH `/recipes/:id`
 
 **Request**
     
@@ -907,9 +918,7 @@ If unsuccessful, you will receive:
 
 This request allows an authenticated user to delete an existing recipe.  Users can only delete recipes they have created.  All directions and ingredient amounts for that recipe will be deleted as well.
 
-**URL** /recipes/:id
-
-**Method** DELETE
+####DELETE `/recipes/:id`
 
 **Request**
     
@@ -948,9 +957,7 @@ If unsuccessful, you will receive:
 
 This request allows an authenticated user to search for a recipe from the Spoonacular API.  User will need to provide search terms in the URL
 
-**URL** /api/recipes/search?query=:search_terms
-
-**Method** GET
+####GET `/api/recipes/search?query=:search_terms`
 
 **Request**
     
@@ -961,7 +968,7 @@ This request allows an authenticated user to search for a recipe from the Spoona
 
 | URL Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
-| query | String | ​*(Required)*​ recipe keywords to search the Spoonacular API|
+| query | String | ​*(Required)*​ recipe keywords to search the Spoonacular API, **must be URL Encoded**|
 
 **Response**
 
@@ -1042,9 +1049,7 @@ If unsuccessful, you will receive:
 
 This request allows an authenticated user to import a recipe from the Spoonacular API.  User will need to provide which Categories they want the recipe added to in our database
 
-**URL** /api/recipes/import
-
-**Method** POST
+####POST `/api/recipes/import`
 
 **Request**
     
@@ -1067,55 +1072,12 @@ If successful, you will receive:
 ```json
 {
   "success": "true",
-  "id": 30,
-  "name": "Sour Cherry Pudding Cake"
-}          
-```
-
-If unsuccessful, you will receive:
-
-    Status Code: 404 - Not Found
-    
-```json
-{
-  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
-}
-```
-
-###<a name="recipe-retrieve-api"></a>Retrieve Recipe from API
-
-This request allows an authenticated user to retrieve a recipe from the Spoonacular API.  User will need to provide the Recipe ID from Spoonacular
-
-**URL** /api/recipes/:id
-
-**Method** GET
-
-**Request**
-    
-| Header Fields        | Type           | Description  |
-| ------------- |:-------------:|:----- |
-| auth-token | String | ​*(Required)*​ existing users auth-token  |
-
-
-| URL Params | Type           | Description  |
-| ------------- |:-------------:|:----- |
-| id | Integer | ​*(Required)*​ ID of the recipe to import, Recipe ID must be present in the Spoonacular DB |
-
-**Response**
-
-If successful, you will receive:
-
-    Status Code: 200 - OK
-
-```json
-{
-  "success": "true",
-  "id": 491957,
+  "id": 27,
   "name": "Bacon and Cheese Stuffed Burgers (Jucy Lucy Burgers)",
   "directions": [
     "Divide beef into 4 equal portions. Form each portion into a tightly packed ball. Working with one ball at a time divide into 2 equal portions. Flatten them into a circle on a cutting board. Fold a slice of cheese in half twice so you have 4 squares of cheese and place in middle of burger. Cover the cheese with bacon crumbles and place the other patty on top so. Crimp the edges together to seal them, the cheese will make a bump on top. Repeat until all 4 burgers are ready. Season the tops with salt and pepper.",
-    "",
-    "Heat a large cast iron or heavy-bottomed skillet over medium heat (alternately you can grill them) and cook burgers over heat 5 minutes on first side (the cheese bump should facing up). Flip the burgers and poke the tops of the burgers with a toothpick to let steam escape. Cook 3-4 minutes. Remove from heat and let burgers rest a few minutes (especially when serving to children) as cheese is molten hot and can cause burns. Serve on buns with the condiments of your choice."
+    "Heat a large cast iron or heavy-bottomed skillet over medium heat (alternately you can grill them) and cook burgers over heat 5 minutes on first side (the cheese bump should facing up). Flip the burgers and poke the tops of the burgers with a toothpick to let steam escape. Cook 3-4 minutes. Remove from heat and let burgers rest a few minutes (especially when serving to children) as cheese is molten hot and can cause burns. Serve on buns with the condiments of your choice.",
+    ""
   ],
   "ingredients": [
     {
@@ -1151,7 +1113,107 @@ If successful, you will receive:
   ],
   "source_name": "Cinnamon Spice and Everything Nice",
   "source_url": "http://www.cinnamonspiceandeverythingnice.com/bacon-and-cheese-stuffed-burgers-jucy-lucy-burgers/",
-  "source_image_url": "https://spoonacular.com/recipeImages/Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg"
+  "source_image_url": "https://spoonacular.com/recipeImages/Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg",
+  "my_image": ""
+}       
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 404 - Not Found
+    
+```json
+{
+  "errors": "Object not found: Couldn't find Recipe with 'id'=55"
+}
+```
+
+###<a name="recipe-retrieve-api"></a>Retrieve Recipe from API
+
+This request allows an authenticated user to retrieve a recipe from the Spoonacular API.  User will need to provide the Recipe ID from Spoonacular
+
+####GET `/api/recipes/:id`
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| id | Integer | ​*(Required)*​ ID of the recipe to retrieve data for, Recipe ID must be present in the Spoonacular DB |
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+
+```json
+{
+  "success": "true",
+  "id": 492957,
+  "name": "Butternut Squash & Cheddar Potatoes au Gratin",
+  "directions": [
+    "Steam the butternut squash until it is soft and can be mashed easily with a fork.",
+    "Preheat your oven to 400°F, and spray a 13x9 inch baking pan with cooking spray or oil.",
+    "Place the butternut squash, milk, broth, dream cheese, mustard, cheddar cheese, and ¼ c parmesan cheese in a blender and puree until smooth. Add salt and pepper to taste.",
+    "Layer half of the potatoes in the prepared pan and pour over half of the cheese sauce. Repeat with the remaining potatoes and sauce.",
+    "Cover and bake for 30 minutes.",
+    "Sprinkle the remaining parmesan cheese over the top, then bake uncovered for another 20-30 minutes, or until the potatoes in the center are soft and the top is browned."
+  ],
+  "ingredients": [
+    {
+      "name": "butternut squash",
+      "amount": 3,
+      "unit": "lbs"
+    },
+    {
+      "name": "chicken broth",
+      "amount": 1,
+      "unit": "c"
+    },
+    {
+      "name": "dry mustard",
+      "amount": 1,
+      "unit": "t"
+    },
+    {
+      "name": "extra sharp cheddar cheese",
+      "amount": 1,
+      "unit": "c"
+    },
+    {
+      "name": "light cream cheese",
+      "amount": 2,
+      "unit": "oz"
+    },
+    {
+      "name": "milk",
+      "amount": 1,
+      "unit": "c"
+    },
+    {
+      "name": "parmesan cheese",
+      "amount": 0.5,
+      "unit": "c"
+    },
+    {
+      "name": "salt and pepper",
+      "amount": 8,
+      "unit": "servings"
+    },
+    {
+      "name": "white potatoes",
+      "amount": 2,
+      "unit": "lbs"
+    }
+  ],
+  "source_name": "Cupcakes and Kale Chips",
+  "source_url": "http://cupcakesandkalechips.com/easyrecipe-print/6088-0/",
+  "source_image_url": "https://spoonacular.com/recipeImages/Butternut-Squash---Cheddar-Potatoes-au-Gratin-492957.jpg"
 }
 ```
 
