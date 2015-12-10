@@ -9,14 +9,14 @@ class UserTest < ActiveSupport::TestCase
     assert user.errors.empty?
   end
 
-  test "cannot create user without email" do
+  test "cannot create user without password" do
     user = User.new(email: "test@user.com")
 
     refute user.save
     assert user.errors.present?
   end
 
-  test "cannot create user without password" do
+  test "cannot create user without email" do
     user = User.new(password: "password")
 
     refute user.save
