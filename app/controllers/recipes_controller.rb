@@ -112,6 +112,24 @@ class RecipesController < ApplicationController
     end
   end
 
+  def search
+    if params["name"]
+      @results = Recipe.search_by_name(params[:name]).includes(:categories,:directions)
+      render "search.json.jbuilder", status: :ok
+    elsif params["ingredients"]
+      if params["search"] == "all"
+        @results = Recipe.search_all_ingredients(params[:ingredients]).includes(:categories,:directions)
+        binding.pry
+        render "search.json.jbuilder", status: :ok
+      else
+        @results = Recipe.search_any_ingredients(params[:ingredients]).includes(:categories,:directions)
+        render "search.json.jbuilder", status: :ok
+      end
+    else
+      render json: { errors: "Please provide a name or ingredients to search for" }, status: :unprocessable_entity
+    end
+  end
+
   private
   def recipe_params
     params.permit(:name, :my_image)

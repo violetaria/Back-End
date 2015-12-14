@@ -1,4 +1,20 @@
 class Recipe < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:name]
+
+  pg_search_scope :search_by_name,
+                  :against => :name,
+                  :using => { :tsearch => {:any_word => true }}
+
+  pg_search_scope :search_any_ingredient, :associated_against => {
+                  :ingredients => :name },
+                  :using => {
+                  :tsearch => {:any_word => true }}
+
+
+  pg_search_scope :search_all_ingredients,
+                  :associated_against => { :ingredients => :name }
+
   belongs_to :user
 
   has_many :recipe_categories, dependent: :destroy
