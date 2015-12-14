@@ -16,13 +16,17 @@ Welcome to the Flour Power API documentation.  This application will allow you t
 	* [Create](#recipe-create)
 	* [Retrieve](#recipe-retrieve)
 	* [List All Recipes](#recipe-list)
+	* [Search Recipes by Ingredient](#recipe-search-ingredient)
+	* [Search Recipes by Name](#recipe-search=name)
 	* [Update](#recipe-update)
 	* [Delete](#recipe-delete)
-	* [Search from API](#recipe-search-api)
-	* [Import from API](#recipe-import-api)
-	* [Retrieve from API](#recipe-retrieve-api)
+* [API Methods](#api-methods)
+	* [Search from API](#api-search)
+	* [Import from API](#aoi-import)
+	* [Retrieve from API](#aoi-retrieve)
 * [OCR Methods](#ocr-methods)
 	* [Process Image](#ocr-process) 
+	
 	
 ##<a name="user-methods"></a>User Methods
 
@@ -859,6 +863,361 @@ If unsuccessful, you will receive:
 }
 ```
 
+###<a name="recipe-search-ingredient"></a>Search by Ingredients 
+
+This request allows an authenticated user to search their recipes by ingredient.  Users can specify whether they want to search for all ingredients or any ingredient.
+
+####GET `/recipes/search?ingredients=:ingredients&search=:type`
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+|ingredients| String | *(Required)* Comma seperated list of search terms|
+| type | String | ​*(Optional)*​ set to 'all' or 'any' **Defaults to ALL** |
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true",
+  "count": 2,
+  "recipes": [
+    {
+      "name": "Kellogg's® Cocoa Krispies® Cheese Cookies and Tomato Soup",
+      "id": 22,
+      "categories": [
+        {
+          "name": "Desserts",
+          "id": 4
+        }
+      ],
+      "directions": [
+        "Make the coconut rice by adding the water, coconut milk, sugar, and salt to a large saucepan. Bring to a boil, then stir in rice. Return to a boil. Reduce heat to low, cover and cook for 20 minutes. Remove from heat and let stand 10 minutes, before fluffing with a fork.",
+        "Meanwhile, make the teriyaki sauce by adding all of the sauce ingredients to a small saucepan over medium heat. Bring to a boil, stirring constantly, and boil for about 1 minute. The sauce should be thick enough to coat the back of the spoon.",
+        "Pour 1/4 cup of the teriyaki sauce over the raw chicken and set aside to marinate for at least 15 minutes.",
+        "Prepare your grill and heat it to medium.",
+        "If you have a vegetable grill basket to grill the vegetables in, then chop them and grill them in the basket. If not, cut the zucchini and onion into large chunks and leave the mini bell peppers whole. Drizzle some olive oil over the vegetables and over the pineapple spears. Grill the vegetables for just a few minutes on each side and then remove to a plate. Grill the pineapple next by placing the pineapple spears directly on the grill. Grill for about 2 minutes on each side, and remove to a plate. Lastly, place the chicken on the grill. Cook for about 2 minutes on each side, or until cooked through. Remove to a plate to rest before slicing.",
+        "To serve, add coconut rice to each serving bowl. Top with grilled veggies, pineapple and chicken. Drizzle a little of the remaining teriyaki sauce on top. Sprinkle with toasted coconut, if desired."
+      ],
+      "ingredients": [
+        {
+          "name": "rice vinegar",
+          "amount": 2,
+          "unit": "Tbsp"
+        },
+        {
+          "name": "soy sauce",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "jasmine rice",
+          "amount": 2,
+          "unit": "cups"
+        },
+        {
+          "name": "water",
+          "amount": 2,
+          "unit": "cups"
+        },
+        {
+          "name": "unsweetened coconut milk",
+          "amount": 1.5,
+          "unit": "cups"
+        },
+        {
+          "name": "salt",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "name": "light brown sugar",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "name": "sweetened coconut flakes",
+          "amount": 0.5,
+          "unit": "cup"
+        }
+      ],
+      "source_name": null,
+      "source_url": null,
+      "source_image_url": null,
+      "my_image": ""
+    },
+    {
+      "name": "Peppermint Patties",
+      "id": 41,
+      "categories": [
+        {
+          "name": "Main Courses",
+          "id": 3
+        }
+      ],
+      "directions": [
+        "To prepare cookies, lightly spoon flour into dry measuring cups; level with a knife. Combine flour, cocoa, baking soda, and salt, stirring with a whisk. Combine sugars and butter in a large bowl, and beat with a mixer at medium speed until well blended. Add vanilla and egg, and beat well. Add flour mixture to sugar mixture, and beat at low speed until well blended.",
+        "Lightly coat hands with cooking spray. Divide dough in half. Shape each half into a 6-inch log. Wrap logs individually in plastic wrap; freeze 1 hour or until firm.",
+        "Preheat oven to 350°.",
+        "Cut each dough log into 24 (1/4-inch) slices; place cookies 1 inch apart on baking sheets coated with cooking spray. Bake at 350° for 11 minutes or until set. Cool completely on wire racks.",
+        "To prepare filling, place candies in a shallow bowl. Spread 2 tablespoons ice cream onto flat side of each of 24 cookies. Top with remaining cookies, flat sides down, pressing gently. Lightly roll the sides of each sandwich in candy. Wrap each sandwich tightly in plastic wrap; freeze 4 hours or until firm."
+      ],
+      "ingredients": [
+        {
+          "name": "baking soda",
+          "amount": 0.5,
+          "unit": "teaspoon"
+        },
+        {
+          "name": "brown sugar",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "butter",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "dutch process cocoa",
+          "amount": 0.333333333333333,
+          "unit": "cup"
+        },
+        {
+          "name": "egg",
+          "amount": 1,
+          "unit": ""
+        },
+        {
+          "name": "flour",
+          "amount": 1.5,
+          "unit": "cups"
+        },
+        {
+          "name": "granulated sugar",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "low fat vanilla ice cream",
+          "amount": 3,
+          "unit": "cups"
+        },
+        {
+          "name": "peppermint candies",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "name": "salt",
+          "amount": 0.25,
+          "unit": "teaspoon"
+        },
+        {
+          "name": "vanilla extract",
+          "amount": 1,
+          "unit": "teaspoon"
+        }
+      ],
+      "source_name": "My Recipes",
+      "source_url": "http://www.myrecipes.com/recipe/peppermint-patties-10000000656159/",
+      "source_image_url": "https://spoonacular.com/recipeImages/Peppermint-Patties-212957.jpg",
+      "my_image": ""
+    }
+  ]
+}          
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 422 - Unprocessable Entity
+    
+```json
+{
+  "errors": "Please provide a name or ingredients to search for"
+}
+```
+
+###<a name="recipe-search-name"></a>Search by Name 
+
+This request allows an authenticated user to search their recipes by recipe name.  
+
+####GET `/recipes/search?name=:search_terms`
+
+**Request**
+    
+| Header Fields        | Type           | Description  |
+| ------------- |:-------------:|:----- |
+| auth-token | String | ​*(Required)*​ existing users auth-token  |
+
+
+| URL Params | Type           | Description  |
+| ------------- |:-------------:|:----- |
+|sesarch_terms| String | *(Required)* Name of recipe to search for|
+
+**Response**
+
+If successful, you will receive:
+
+    Status Code: 200 - OK
+    
+```json
+{
+  "success": "true",
+  "count": 2,
+  "recipes": [
+    {
+      "name": "Sour Cherry Pudding Cake",
+      "id": 30,
+      "categories": [
+        {
+          "name": "Drinks",
+          "id": 1
+        }
+      ],
+      "directions": [
+        "Preheat oven to 375 degrees F (190 degrees C). Grease a 9x13-inch baking dish.",
+        "In a bowl, stir together the flour, 1 cup of sugar, baking powder, milk, and vegetable oil to make a smooth batter; scrape batter into the prepared baking dish.",
+        "In a separate bowl, stir the cherries with 1 cup of sugar and the almond extract; spoon the cherry mixture over the batter.",
+        "Bake in the preheated oven until the cake is lightly browned and a toothpick inserted into the center of the cake comes out clean, about 30 minutes.",
+        "Kitchen-Friendly View"
+      ],
+      "ingredients": [
+        {
+          "name": "almond extract",
+          "amount": 0.25,
+          "unit": "teaspoon"
+        },
+        {
+          "name": "baking powder",
+          "amount": 1,
+          "unit": "tablespoon"
+        },
+        {
+          "name": "flour",
+          "amount": 2,
+          "unit": "cups"
+        },
+        {
+          "name": "milk",
+          "amount": 1,
+          "unit": "cup"
+        },
+        {
+          "name": "tart cherries",
+          "amount": 3,
+          "unit": "cups"
+        },
+        {
+          "name": "vegetable oil",
+          "amount": 2,
+          "unit": "tablespoons"
+        },
+        {
+          "name": "white sugar",
+          "amount": 1,
+          "unit": "cup"
+        }
+      ],
+      "source_name": "Allrecipes",
+      "source_url": "http://allrecipes.com/recipe/sour-cherry-pudding-cake/Detail.aspx",
+      "source_image_url": "https://spoonacular.com/recipeImages/Sour-Cherry-Pudding-Cake-342491.jpg",
+      "my_image": "https://flourpower-dev.s3.amazonaws.com/recipes/my_images/000/000/030/original/12279085_10207822490338393_5100797063626879098_n.jpg?1449521401"
+    },
+    {
+      "name": "Brown Butter Pound Cake",
+      "id": 38,
+      "categories": [
+        {
+          "name": "Main Courses",
+          "id": 3
+        }
+      ],
+      "directions": [
+        "cool completely, right side up, 1 hour.",
+        "Preparation",
+        "Preheat oven to 325°F with rack in middle. Butter and lightly flour an 8 1/2-by 4 1/2-inch loaf pan.",
+        "Heat butter in a 10-inch heavy skillet over medium heat until milk solids",
+        "on bottom are a dark chocolate brown. Transfer to a shallow bowl and chill",
+        "in freezer until just congealed, about",
+        "15 minutes.",
+        "Whisk together flour, baking powder, and salt.",
+        "Beat together brown butter and sugars with an electric mixer until fluffy, about",
+        "2 minutes. Add eggs 1 at a time, beating well after each addition. Beat in vanilla.",
+        "At low speed, mix in flour mixture until just incorporated.",
+        "Transfer batter to pan, smoothing top, then rap pan on counter to settle batter. Bake until golden-brown and a wooden pick inserted into center comes out clean, 1 to 1 1/4 hours. Cool in pan 30 minutes, then invert cake onto a rack and"
+      ],
+      "ingredients": [
+        {
+          "name": "salt",
+          "amount": 0.5,
+          "unit": "teaspoon"
+        },
+        {
+          "name": "eggs",
+          "amount": 4,
+          "unit": ""
+        },
+        {
+          "name": "granulated sugar",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "unsalted butter",
+          "amount": 2.25,
+          "unit": "sticks"
+        },
+        {
+          "name": "cake flour",
+          "amount": 2,
+          "unit": "cups"
+        },
+        {
+          "name": "vanilla extract",
+          "amount": 0.5,
+          "unit": "teaspoon"
+        },
+        {
+          "name": "light brown sugar",
+          "amount": 0.5,
+          "unit": "cup"
+        },
+        {
+          "name": "baking powder",
+          "amount": 1,
+          "unit": "teaspoon"
+        }
+      ],
+      "source_name": "Epicurious",
+      "source_url": "http://www.epicurious.com:80/recipes/food/views/Brown-Butter-Pound-Cake-355435",
+      "source_image_url": "https://spoonacular.com/recipeImages/Brown-Butter-Pound-Cake-231957.jpg",
+      "my_image": ""
+    }
+  ]
+}        
+```
+
+If unsuccessful, you will receive:
+
+    Status Code: 422 - Unprocessable Entity
+    
+```json
+{
+  "errors": "Please provide a name or ingredients to search for"
+}
+```
+
 ###<a name="recipe-update"></a>Update Recipe 
 
 This request allows an authenticated user to update an existing recipe.  Users can only update recipes that they have created.
@@ -955,7 +1314,9 @@ If unsuccessful, you will receive:
 }
 ```
 
-###<a name="recipe-search-api"></a>Search Recipes from API
+##<a name="api-methods"></a>Spoonacular API Methods
+
+###<a name="api-search"></a>Search Recipes from API
 
 This request allows an authenticated user to search for a recipe from the Spoonacular API.  User will need to provide search terms in the URL
 
@@ -1047,7 +1408,7 @@ If unsuccessful, you will receive:
 ```
 
 
-###<a name="recipe-import-api"></a>Import Recipe from API
+###<a name="import-api"></a>Import Recipe from API
 
 This request allows an authenticated user to import a recipe from the Spoonacular API.  User will need to provide which Categories they want the recipe added to in our database
 
@@ -1130,7 +1491,7 @@ If unsuccessful, you will receive:
 }
 ```
 
-###<a name="recipe-retrieve-api"></a>Retrieve Recipe from API
+###<a name="api-retrieve"></a>Retrieve Recipe from API
 
 This request allows an authenticated user to retrieve a recipe from the Spoonacular API.  User will need to provide the Recipe ID from Spoonacular
 
