@@ -70,10 +70,15 @@ class RecipesController < ApplicationController
                                          source_url: recipe_info[:source_url],
                                          source_image_url: recipe_info[:source_image_url])
       if @recipe.save
-        @recipe.category_names = params["category_names"]
-        @recipe.steps = steps
-        @recipe.ingredient_amounts = ingredients
-        render "import.json.jbuilder", status: :created
+        begin
+          @recipe.category_names = params["category_names"]
+          @recipe.steps = steps
+          @recipe.ingredient_amounts = ingredients
+          render "import.json.jbuilder", status: :created
+        rescue
+          @recipe.destroy!
+          render json: { errors: "Recipe could not be imported." }, status: :unprocessable_entity
+        end
       else
         render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
       end
@@ -83,10 +88,15 @@ class RecipesController < ApplicationController
   def create
     @recipe = current_user.recipes.new(recipe_params)
     if @recipe.save
-      @recipe.steps = step_params
-      @recipe.category_names = category_params
-      @recipe.ingredient_amounts = ingredient_params
-      render "create.json.jbuilder", status: :created
+      begin
+        @recipe.steps = step_params
+        @recipe.category_names = category_params
+        @recipe.ingredient_amounts = ingredient_params
+        render "create.json.jbuilder", status: :created
+      rescue
+        @recipe.destroy!
+        render json: { errors: "Recipe creation failed" }, status: :unprocessable_entity
+      end
     else
       render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
     end
@@ -119,7 +129,6 @@ class RecipesController < ApplicationController
     elsif params["ingredients"]
       if params["search"] == "all"
         @results = Recipe.search_all_ingredients(params[:ingredients]).includes(:categories,:directions)
-        binding.pry
         render "search.json.jbuilder", status: :ok
       else
         @results = Recipe.search_any_ingredients(params[:ingredients]).includes(:categories,:directions)
