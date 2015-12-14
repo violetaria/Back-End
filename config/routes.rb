@@ -20,9 +20,12 @@ Rails.application.routes.draw do
   resources :categories, only: [:index ] #, :create, :update, :destroy]
   get "categories/:id/recipes", to: "categories#show"
 
+  get "recipes/search", to: "recipes#search"
+
   resources :recipes, only: [:show, :index, :create, :update, :destroy ] do
     # resources :directions, only: [ :update, :destroy ]
   end
+
 
   post "ocr/process_image", to: "ocr#process_image"
 
