@@ -26,9 +26,9 @@ class SpoonacularFormatter
       end
     else
       data["text"] ||= ""
-      data["text"].split("\n").map do |step|
-        step.lstrip.rstrip unless step.nil?
-      end
+      data["text"].split("\n")
+          .map { |step| step.lstrip.rstrip }
+          .reject { |step| step.length==0 }
     end
   end
 

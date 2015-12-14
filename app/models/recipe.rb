@@ -44,7 +44,7 @@ class Recipe < ActiveRecord::Base
   end
 
   def steps=(new_steps)
-    steps = new_steps.each.map { |step| self.directions.create(step: step) }
+    steps = new_steps.select { |step| step.length > 0 }.map{ |step| self.directions.create(step: step) }
     self.directions = steps
   end
 
