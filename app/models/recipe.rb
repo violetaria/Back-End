@@ -58,9 +58,11 @@ class Recipe < ActiveRecord::Base
   def ingredient_amounts=(new_amounts)
     new_amounts.each do | item |
       ingredient = Ingredient.find_or_create_by!(name: item[:name])
-      self.recipe_ingredients.create!(ingredient_id: ingredient.id,
-                               amount: item[:amount],
-                               unit: item[:unit])
+      new_ingredient = self.recipe_ingredients.find_or_initialize_by(ingredient_id: ingredient.id,
+                               unit: item[:unit], amount: item[:amount])
+
+      new_ingredient.amount = new_ingredient.new_record? ? item[:amount] : new_ingredient.amount + item[:amount]
+      new_ingredient.save!
     end
     self.recipe_ingredients
   end
