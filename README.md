@@ -1331,7 +1331,7 @@ This request allows an authenticated user to search for a recipe from the Spoona
 
 | URL Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
-| query | String | ​*(Required)*​ recipe keywords to search the Spoonacular API, **must be URL Encoded**|
+| search_terms | String | ​*(Required)*​ recipe keywords to search the Spoonacular API, **must be URL Encoded**|
 
 **Response**
 
