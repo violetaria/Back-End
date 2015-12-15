@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :recipes, dependent: :destroy
 
-  before_validation :ensure_auth_token
+  before_validation :strip_leading_trailing_spaces, :ensure_auth_token
 
   validates_presence_of :email, :password_digest
   validates_uniqueness_of :email
@@ -20,5 +20,9 @@ class User < ActiveRecord::Base
       token = SecureRandom.hex
     end
     token
+  end
+
+  def strip_leading_trailing_spaces
+    self.email = self.email.lstrip.rstrip unless self.email.nil?
   end
 end

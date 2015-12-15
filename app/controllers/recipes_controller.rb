@@ -131,7 +131,7 @@ class RecipesController < ApplicationController
         @results = Recipe.search_all_ingredients(params[:ingredients]).includes(:categories,:directions)
         render "search.json.jbuilder", status: :ok
       else
-        @results = Recipe.search_any_ingredients(params[:ingredients]).includes(:categories,:directions)
+        @results = Recipe.search_any_ingredient(params[:ingredients]).includes(:categories,:directions)
         render "search.json.jbuilder", status: :ok
       end
     else
