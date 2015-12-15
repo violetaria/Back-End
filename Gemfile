@@ -66,6 +66,9 @@ group :development, :test do
 
   gem 'pry'
 
+  # use stub any instance to create stubs for controller tests
+  gem 'minitest-stub_any_instance'
+
   # use bullet to look for DB query optimizations
   gem "bullet"
 end

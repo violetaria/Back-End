@@ -90,6 +90,7 @@ GEM
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
+    minitest-stub_any_instance (1.0.1)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     nokogiri (1.6.7)
@@ -196,6 +197,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.0)
   jquery-rails
+  minitest-stub_any_instance
   nokogiri
   paperclip (~> 4.3)
   pg

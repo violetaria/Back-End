@@ -33,7 +33,7 @@ class RecipesController < ApplicationController
   def search_api
     api = Spoonacular.new
     results = api.search_recipes(params[:query])
-    if results["totalResults"] > 0
+    if results && results["totalResults"].to_i > 0
       @recipes = SpoonacularFormatter.get_recipes(results)
       render "search_api.json.jbuilder", status: :ok
     else
@@ -129,11 +129,10 @@ class RecipesController < ApplicationController
     elsif params["ingredients"]
       if params["search"] == "all"
         @results = Recipe.search_all_ingredients(params[:ingredients]).includes(:categories,:directions)
-        render "search.json.jbuilder", status: :ok
       else
-        @results = Recipe.search_any_ingredients(params[:ingredients]).includes(:categories,:directions)
-        render "search.json.jbuilder", status: :ok
+        @results = Recipe.search_any_ingredient(params[:ingredients]).includes(:categories,:directions)
       end
+      render "search.json.jbuilder", status: :ok
     else
       render json: { errors: "Please provide a name or ingredients to search for" }, status: :unprocessable_entity
     end
