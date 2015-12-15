@@ -127,7 +127,7 @@ class RecipesController < ApplicationController
       @results = Recipe.search_by_name(params[:name]).includes(:categories,:directions)
       render "search.json.jbuilder", status: :ok
     elsif params["ingredients"]
-      if params["search"] == "all"
+      if params["search"].downcase == "all"
         @results = Recipe.search_all_ingredients(params[:ingredients]).includes(:categories,:directions)
       else
         @results = Recipe.search_any_ingredient(params[:ingredients]).includes(:categories,:directions)

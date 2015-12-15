@@ -870,6 +870,8 @@ This request allows an authenticated user to search their recipes by ingredient.
 ####GET `/recipes/search?ingredients=:ingredients&search=:type`
 
 **Request**
+
+***Example*** /recipes/search?ingredients=vodka beef&search=any
     
 | Header Fields        | Type           | Description  |
 | ------------- |:-------------:|:----- |
@@ -878,8 +880,9 @@ This request allows an authenticated user to search their recipes by ingredient.
 
 | URL Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
-|ingredients| String | *(Required)* Comma seperated list of search terms|
+|ingredients| String | *(Required)* SPACE seperated list of search terms|
 | type | String | ​*(Optional)*​ set to 'all' or 'any' **Defaults to ALL** |
+
 
 **Response**
 
@@ -1323,6 +1326,8 @@ This request allows an authenticated user to search for a recipe from the Spoona
 ####GET `/api/recipes/search?query=:search_terms`
 
 **Request**
+
+***Example*** /api/recipes/search?query=hamburger bun
     
 | Header Fields        | Type           | Description  |
 | ------------- |:-------------:|:----- |
@@ -1331,7 +1336,7 @@ This request allows an authenticated user to search for a recipe from the Spoona
 
 | URL Params | Type           | Description  |
 | ------------- |:-------------:|:----- |
-| search_terms | String | ​*(Required)*​ recipe keywords to search the Spoonacular API, **must be URL Encoded**|
+| search_terms | String | ​*(Required)*​ recipe keywords to search the Spoonacular API|
 
 **Response**
 
