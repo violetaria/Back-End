@@ -138,67 +138,85 @@ class RecipesControllerTest < ActionController::TestCase
   end
 
   test "can search api while logged in" do
-    skip "need to stub out the API call"
     @request.headers["auth-token"] = users(:one).auth_token
 
-    get :search_api, { query: "burgers" }
+    Spoonacular.stub_any_instance(:search_recipes,json_response("search_api.json")) do
+      get :search_api, { query: "burgers" }
 
-    assert_response :ok
+      assert_response :ok
 
-    assert_not_nil (:recipes)
+      assert_not_nil (:recipes)
+    end
+
   end
 
   test "cannot search api when not logged in" do
-    skip "need to stub out the API call"
-    get :search_api, { query: "burgers" }
+    Spoonacular.stub_any_instance(:search_recipes,json_response("search_api.json")) do
+      get :search_api, { query: "burgers" }
 
-    assert_response :unauthorized
+      assert_response :unauthorized
 
-
-    assert_nil assigns(:recipes)
+      assert_nil assigns(:recipes)
+    end
   end
 
   test "can retrieve from api when logged in" do
-    skip "need to stub out the API call"
     @request.headers["auth-token"] = users(:one).auth_token
 
-    get :search_api, { query: "burgers" }
+    Spoonacular.stub_any_instance(:search_recipes,json_response("search_api.json")) do
+      Spoonacular.stub_any_instance(:get_recipe_info,json_response("get_recipe_info_api.json")) do
+        Spoonacular.stub_any_instance(:get_recipe_data,json_response("get_recipe_data_api.json")) do
+          get :search_api, { query: "burgers" }
 
-    get :retrieve_api, { id: assigns(:recipes).first[:id] }
+          get :retrieve_api, { id: assigns(:recipes).first[:id] }
 
-    assert_response :ok
+          assert_response :ok
 
-    assert_not_nil assigns(:recipe_info)
-    assert_not_nil assigns(:steps)
-    assert_not_nil assigns(:ingredients)
+          assert_not_nil assigns(:recipe_info)
+          assert_not_nil assigns(:steps)
+          assert_not_nil assigns(:ingredients)
+        end
+      end
+    end
   end
 
+
   test "cannot retrieve from api when not logged in" do
-    skip "need to stub out the API call"
     @request.headers["auth-token"] = users(:one).auth_token
-    get :search_api, { query: "burgers" }
-    @request.headers["auth-token"] = nil
-    get :retrieve_api, { id: assigns(:recipes).first[:id] }
+    Spoonacular.stub_any_instance(:search_recipes,json_response("search_api.json")) do
+     Spoonacular.stub_any_instance(:get_recipe_info,json_response("get_recipe_info_api.json")) do
+       Spoonacular.stub_any_instance(:get_recipe_data,json_response("get_recipe_data_api.json")) do
+        get :search_api, { query: "burgers" }
+        @request.headers["auth-token"] = nil
+        get :retrieve_api, { id: assigns(:recipes).first[:id] }
 
-    assert_response :unauthorized
+        assert_response :unauthorized
 
-    assert_nil assigns(:recipe_info)
-    assert_nil assigns(:steps)
-    assert_nil assigns(:ingredients)
+        assert_nil assigns(:recipe_info)
+        assert_nil assigns(:steps)
+        assert_nil assigns(:ingredients)
+      end
+     end
+    end
   end
 
   test "can import recipe from api when logged in" do
-    skip "need to stub out the API call"
+    Spoonacular.stub_any_instance(:search_recipes,json_response("search_api.json")) do
+      Spoonacular.stub_any_instance(:get_recipe_info,json_response("get_recipe_info_api.json")) do
+        Spoonacular.stub_any_instance(:get_recipe_data,json_response("get_recipe_data_api.json")) do
 
-    @request.headers["auth-token"] = users(:one).auth_token
-    get :search_api, { query: "burgers" }
+          @request.headers["auth-token"] = users(:one).auth_token
+          get :search_api, { query: "burgers" }
 
-    assert_difference ["Recipe.count","RecipeCategory.count"] do
-      post :import_api, { id: assigns(:recipes).first[:id], category_names: [categories(:one).name] }
+          assert_difference ["Recipe.count","RecipeCategory.count"] do
+            post :import_api, { id: assigns(:recipes).first[:id], category_names: [categories(:one).name] }
+          end
+
+          assert_response :created
+
+          assert_not_nil assigns(:recipe)
+        end
+      end
     end
-
-    assert_response :created
-
-    assert_not_nil assigns(:recipe)
   end
 end

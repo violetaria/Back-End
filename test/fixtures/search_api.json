@@ -1,0 +1,103 @@
+{"results": [
+    {
+      "id": 491957,
+      "title": "Bacon and Cheese Stuffed Burgers (Jucy Lucy Burgers)",
+      "readyInMinutes": 25,
+      "image": "Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg",
+      "imageUrls": [
+        "Bacon-and-Cheese-Stuffed-Burgers-(Jucy-Lucy-Burgers)-491957.jpg"
+      ]
+    },
+    {
+      "id": 102267,
+      "title": "Tex-Mex Burgers Texotic-Mexotic Burgers",
+      "readyInMinutes": 50,
+      "image": "tex-mex-burgers-texotic-mexotic-burgers-2-102267.jpg",
+      "imageUrls": [
+        "tex-mex-burgers-texotic-mexotic-burgers-2-102267.jpg",
+        "tex-mex_burgers_texotic-mexotic_burgers-102267.jpg"
+      ]
+    },
+    {
+      "id": 600168,
+      "title": "Tartar Burgers – these are tasty little burgers that everyone will love",
+      "readyInMinutes": 20,
+      "image": "Tartar-Burgers--these-are-tasty-little-burgers-that-everyone-will-love-600168.jpg",
+      "imageUrls": [
+        "Tartar-Burgers--these-are-tasty-little-burgers-that-everyone-will-love-600168.jpg"
+      ]
+    },
+    {
+      "id": 145892,
+      "title": "Burgers.....my Way",
+      "readyInMinutes": 20,
+      "image": "burgers-my-way-2-145892.jpg",
+      "imageUrls": [
+        "burgers-my-way-2-145892.jpg",
+        "burgers_my_way-145892.jpg"
+      ]
+    },
+    {
+      "id": 470451,
+      "title": "Best Burgers Ever",
+      "readyInMinutes": 20,
+      "image": "Best-Burgers-Ever-470451.jpg",
+      "imageUrls": [
+        "Best-Burgers-Ever-470451.jpg"
+      ]
+    },
+    {
+      "id": 471658,
+      "title": "The Very Best Burgers!",
+      "readyInMinutes": 25,
+      "image": "The-Very-Best-Burgers-471658.jpg",
+      "imageUrls": [
+        "The-Very-Best-Burgers-471658.jpg"
+      ]
+    },
+    {
+      "id": 479011,
+      "title": "The Best Burgers",
+      "readyInMinutes": 45,
+      "image": "The-Best-Burgers-479011.jpg",
+      "imageUrls": [
+        "The-Best-Burgers-479011.jpg"
+      ]
+    },
+    {
+      "id": 545379,
+      "title": "All A.1. Burgers",
+      "readyInMinutes": 20,
+      "image": "All-A-1--Burgers-545379.jpg",
+      "imageUrls": [
+        "All-A-1--Burgers-545379.jpg"
+      ]
+    },
+    {
+      "id": 7688,
+      "title": "Tuna Burgers",
+      "readyInMinutes": 37,
+      "image": "tuna-burgers-2-7688.jpg",
+      "imageUrls": [
+        "tuna-burgers-2-7688.jpg"
+      ]
+    },
+    {
+      "id": 8843,
+      "title": "Lentil Burgers",
+      "readyInMinutes": 45,
+      "image": "lentil_burgers-8843.jpg",
+      "imageUrls": [
+        "lentil_burgers-8843.jpg",
+        "lentil-burgers-2-8843.jpg"
+      ]
+    }
+  ],
+  "baseUri": "https://spoonacular.com/recipeImages/",
+  "offset": 0,
+  "number": 10,
+  "totalResults": 10,
+  "processingTimeMs": 161,
+  "expires": 1450370754410,
+  "isStale": false
+}
